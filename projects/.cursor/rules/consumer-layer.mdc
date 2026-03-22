@@ -1,0 +1,38 @@
+---
+description: Shared consumer-project rules for all business projects under /projects
+alwaysApply: true
+---
+
+# Projects Consumer Layer Rules
+
+## Role
+This directory contains business consumer projects.
+These projects consume the FQL design system and should not redefine it.
+
+## Source of truth
+- Shared primitives belong in `../ai-agent-design-system/components/ui/*`.
+- Shared semantic wrappers belong in `../ai-agent-design-system/components/fql/*`.
+- Shared token mapping belongs in `../ai-agent-design-system/app/globals.css`.
+- Registry-related assets belong in `../ai-agent-design-system`.
+
+## Consumption behavior
+- Always check whether the needed UI already exists upstream before creating local components.
+- Prefer consuming existing design-system components over rebuilding them locally.
+- If a missing pattern looks reusable across multiple projects, propose promoting it into the design system first.
+- Keep business assembly local, keep reusable abstractions upstream.
+
+## Styling behavior
+- Prefer semantic tokens and existing design-system styling conventions.
+- Do not hardcode hex colors, radius values, or shadow values when upstream semantic tokens already solve the need.
+- Do not create a parallel theme system without explicit approval.
+
+## Implementation behavior
+- State the target project before multi-file edits.
+- Provide a short plan before changing multiple files.
+- List changed files after implementation.
+- Explicitly mark anything reusable as a promotion candidate for the design system.
+
+## Do not
+- Do not recreate `components/ui/*` inside business projects.
+- Do not recreate `components/fql/*` locally unless it is intentionally temporary and clearly marked.
+- Do not move business-specific page logic into the design system.

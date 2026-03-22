@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "fql-card",
+  "title": "FQL Card",
+  "description": "Semantic card wrapper built on top of shadcn card.",
+  "files": [
+    {
+      "path": "components/fql/fql-card.tsx",
+      "content": "import * as React from \"react\"\n\nimport { cn } from \"@/lib/utils\"\nimport {\n  Card,\n  CardContent,\n  CardDescription,\n  CardFooter,\n  CardHeader,\n  CardTitle,\n} from \"@/components/ui/card\"\n\nexport interface FqlCardProps extends React.ComponentProps<\"div\"> {\n  title?: React.ReactNode\n  description?: React.ReactNode\n  contentClassName?: string\n  footer?: React.ReactNode\n}\n\nexport function FqlCard({\n  className,\n  title,\n  description,\n  children,\n  contentClassName,\n  footer,\n  ...props\n}: FqlCardProps) {\n  return (\n    <Card\n      className={cn(\n        \"rounded-lg border-border bg-card text-card-foreground shadow-sm\",\n        className\n      )}\n      {...props}\n    >\n      {(title || description) && (\n        <CardHeader className=\"gap-1.5\">\n          {title ? <CardTitle className=\"text-base font-medium\">{title}</CardTitle> : null}\n          {description ? (\n            <CardDescription className=\"text-sm text-muted-foreground\">\n              {description}\n            </CardDescription>\n          ) : null}\n        </CardHeader>\n      )}\n\n      <CardContent className={cn(\"pt-0\", contentClassName)}>\n        {children}\n      </CardContent>\n\n      {footer ? <CardFooter>{footer}</CardFooter> : null}\n    </Card>\n  )\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "type": "registry:component"
+}

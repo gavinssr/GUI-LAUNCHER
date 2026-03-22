@@ -1,0 +1,43 @@
+{
+    "$schema": "https://ui.shadcn.com/schema/registry.json",
+    "name": "fql",
+    "homepage": "http://localhost:3000",
+    "items": [
+      {
+        "name": "fql-card",
+        "type": "registry:component",
+        "title": "FQL Card",
+        "description": "Semantic card wrapper built on top of shadcn card.",
+        "files": [
+          {
+            "path": "components/fql/fql-card.tsx",
+            "type": "registry:component"
+          }
+        ]
+      },
+      {
+        "name": "status-badge",
+        "type": "registry:component",
+        "title": "Status Badge",
+        "description": "Semantic status badge for success, warning, danger, marketing and neutral states.",
+        "files": [
+          {
+            "path": "components/fql/status-badge.tsx",
+            "type": "registry:component"
+          }
+        ]
+      },
+      {
+        "name": "fql-field",
+        "type": "registry:component",
+        "title": "FQL Field",
+        "description": "Semantic text input field built on top of shadcn field and input.",
+        "files": [
+          {
+            "path": "components/fql/fql-field.tsx",
+            "type": "registry:component"
+          }
+        ]
+      }
+    ]
+  }

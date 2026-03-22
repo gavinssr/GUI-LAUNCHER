@@ -1,0 +1,68 @@
+---
+description: FQL design system and shadcn usage rules
+globs:
+  - "app/**/*.tsx"
+  - "components/**/*.tsx"
+  - "components/**/*.ts"
+  - "lib/**/*.ts"
+alwaysApply: true
+---
+
+# FQL UI System Rules
+
+## Core workflow
+- Always prefer existing internal components before creating new UI.
+- Always check `components/ui` first, then `components/fql` if it exists.
+- Use shadcn-generated components as base primitives, then wrap them into FQL semantic components.
+- Do not directly paste large blocks of generated UI without first listing the component plan.
+
+## Token rules
+- Never hardcode hex colors in TSX or JSX.
+- Never hardcode border-radius values in TSX or JSX.
+- Never hardcode shadow values in TSX or JSX.
+- Always use semantic classes based on the theme variables in `app/globals.css`.
+- Prefer `bg-background`, `text-foreground`, `border-border`, `bg-primary`, `text-primary-foreground`, `bg-muted`, `text-muted-foreground`, `bg-accent`, `text-accent-foreground`.
+- For destructive actions use destructive tokens, not custom red utilities.
+
+## shadcn rules
+- Use shadcn CLI components from `@/components/ui/*`.
+- When a needed primitive does not exist, suggest the exact shadcn add command first.
+- Do not rewrite shadcn base primitives unless necessary for token mapping or accessibility.
+- Prefer composition over editing vendor-like base components.
+
+## FQL component layering
+- Base layer: `components/ui/*` for shadcn primitives.
+- Semantic layer: `components/fql/*` for company-specific components.
+- Page layer: route files in `app/*` only compose semantic or base components.
+- Do not place business-specific visual logic inside `components/ui/*`.
+
+## Code style
+- Use TypeScript.
+- Use server components by default; add `"use client"` only when interaction requires it.
+- Keep components small and single-purpose.
+- Before editing multiple files, state a short implementation plan.
+- After generating code, state which files were created or changed.
+
+## Forbidden behavior
+- Do not invent nonexistent design tokens.
+- Do not create a second parallel theme file.
+- Do not use inline style for production UI unless unavoidable.
+- Do not add a new UI library when shadcn or local components can solve it.
+
+## Extraction thresholds
+- Do not create a new FQL semantic component for a pattern used in only one page.
+- Consider a new FQL semantic component only when the same UI pattern appears in at least 2 pages or is clearly planned for cross-page reuse.
+- Do not create a new registry item for a page-level composition.
+- Create a new `@fql/*` registry item only when the component is stable, reusable across projects or repositories, and has a clear semantic API.
+- Prefer local page composition first, FQL semantic extraction second, registry publication last.
+
+## Decision checklist
+Before creating a new semantic component, answer:
+1. Is this repeated across at least 2 pages?
+2. Is this more than a simple composition of existing FQL components?
+3. Does it represent a stable semantic concept rather than a one-off business section?
+
+Before creating a new registry item, answer:
+1. Would another repository install this directly?
+2. Is its API stable enough to document?
+3. Is it more than a page-specific assembly?

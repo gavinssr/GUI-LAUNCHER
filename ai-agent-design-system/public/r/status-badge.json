@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "status-badge",
+  "title": "Status Badge",
+  "description": "Semantic status badge for success, warning, danger, marketing and neutral states.",
+  "files": [
+    {
+      "path": "components/fql/status-badge.tsx",
+      "content": "import * as React from \"react\"\n\nimport { Badge } from \"@/components/ui/badge\"\nimport { cn } from \"@/lib/utils\"\n\ntype StatusBadgeVariant =\n  | \"default\"\n  | \"success\"\n  | \"warning\"\n  | \"danger\"\n  | \"marketing\"\n  | \"neutral\"\n\nexport interface StatusBadgeProps\n  extends React.ComponentProps<typeof Badge> {\n  status?: StatusBadgeVariant\n}\n\nconst statusClassMap: Record<StatusBadgeVariant, string> = {\n  default: \"bg-primary text-primary-foreground hover:bg-primary/90\",\n  success: \"bg-[var(--success)] text-[var(--success-foreground)] hover:opacity-90\",\n  warning: \"bg-[var(--warning)] text-[var(--warning-foreground)] hover:opacity-90\",\n  danger: \"bg-destructive text-destructive-foreground hover:bg-destructive/90\",\n  marketing: \"bg-[var(--marketing)] text-[var(--marketing-foreground)] hover:opacity-90\",\n  neutral: \"bg-muted text-muted-foreground hover:bg-muted/90\",\n}\n\nexport function StatusBadge({\n  className,\n  status = \"default\",\n  ...props\n}: StatusBadgeProps) {\n  return (\n    <Badge\n      className={cn(statusClassMap[status], className)}\n      {...props}\n    />\n  )\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "type": "registry:component"
+}
