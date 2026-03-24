@@ -49,3 +49,9 @@ Before editing code in this project, always read in this order:
 - Shared semantic wrappers
 - Registry source files
 - Global token source of truth
+
+## Upstream registry consumption
+- When a reusable FQL semantic component is needed, first inspect `../../ai-agent-design-system/components/fql/*` and the upstream `../../ai-agent-design-system/AGENTS.md`.
+- Prefer consuming stable upstream components or upstream registry-backed components before creating local equivalents.
+- Do not copy registry-backed semantic components into this project unless explicitly approved as a temporary experiment.
+- If a needed pattern is missing locally but looks reusable across projects, propose promoting it into `ai-agent-design-system` first.

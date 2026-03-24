@@ -1,6 +1,6 @@
 import * as React from "react"
 
-import { cn } from "@/lib/utils"
+import { cn } from "../../lib/utils"
 import {
   Card,
   CardContent,
@@ -8,9 +8,9 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "../ui/card"
 
-export interface FqlCardProps extends React.ComponentProps<"div"> {
+export interface FqlCardProps extends Omit<React.ComponentPropsWithoutRef<"div">, "title"> {
   title?: React.ReactNode
   description?: React.ReactNode
   contentClassName?: string

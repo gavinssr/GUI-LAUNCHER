@@ -48,3 +48,16 @@ When implementing UI, the agent should:
 2. identify FQL semantic components,
 3. state file changes,
 4. then generate code.
+
+## Local registry workflow
+- This package is the source of truth for local FQL registry definitions and registry build output.
+- When working on reusable FQL semantic components, inspect `components/fql/*`, `components.json`, `registry.json`, and `public/r/*` before proposing new registry items.
+- When a semantic component is stable and intended for cross-project reuse, prefer exposing it through the local `@fql` registry instead of copying code into consumer apps.
+- For local registry verification, prefer these checks in order:
+  1. ensure the design-system dev server is running on `http://localhost:3001`,
+  2. verify `http://localhost:3001/r/registry.json`,
+  3. verify an item such as `http://localhost:3001/r/fql-card.json`,
+  4. verify CLI resolution with `pnpm dlx shadcn@latest view @fql/fql-card`.
+- After changing `registry.json`, `components.json`, or reusable registry-backed components, run `pnpm run registry:build`.
+- Do not publish page-level compositions as registry items.
+- Prefer registry publication only for stable, reusable semantic components with clear APIs.
