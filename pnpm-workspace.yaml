@@ -1,7 +1,0 @@
-packages:
-  - "ai-agent-design-system"
-  - "projects/*"
-
-ignoredBuiltDependencies:
-  - sharp
-  - unrs-resolver
