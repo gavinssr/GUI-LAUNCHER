@@ -452,8 +452,26 @@
 
 ---
 
+### 2026-03-26 / 工作区整仓推送到 GUI-EXPLORE
+- 本轮目标：将管理层目录与 `FQL-GUI-Launcher` 单体工作区整理为一个 git 仓库，并整体推送到 `git@github.com:gavinssr/GUI-EXPLORE.git`。
+- 本轮产出：
+  - 在工作区根目录初始化 git 仓库并建立首个提交；
+  - 新增根级 `.gitignore`，避免提交 `.DS_Store`、`node_modules`、`.next` 等本地产物；
+  - 将 `FQL-GUI-Launcher/.git` 迁出为桌面备份，改为由外层仓库统一管理；
+  - 准备将整仓推送到新的 GitHub 仓库 `GUI-EXPLORE`。
+- changed files：
+  - `.gitignore`
+  - `manage-schedule.md`
+- package scope：workspace governance + `FQL-GUI-Launcher` monorepo（整仓版本管理）
+- promotion candidate：无（本轮为仓库治理与发布动作，不涉及 UI 抽象）
+- 风险/阻塞：`FQL-GUI-Launcher` 的原独立 git 历史已迁出为桌面备份，后续若要继续沿用旧仓库历史，需要基于该备份单独处理。
+- 下一步（P0）：完成 `GUI-EXPLORE` 远端推送并校验默认分支状态。
+- 下一步（P1）：回到项目主线，继续协商确认 P1-A Batch 2 primitive 开发清单。
+
+---
+
 ## 9. 最新断点 / 下一步（每次任务结束刷新）
-- 最新断点：primitive 独立预览机制已落地，当前断点转为“P1-A Batch 2 清单协商确认（先确认后执行）”。
-- 下一步（P0）：与用户协商确认 Batch 2 primitive 开发清单，并先写入 `manage-schedule.md` 后再进入实现。
-- 下一步（P1）：实现 Batch 2 后同步更新 `primitivePreviewRegistry` 并完成 build/dev 验证。
-- 风险/依赖：需持续遵守“先协商后执行”与“新增 primitive 必须入 preview registry”两条强规则。
+- 最新断点：工作区已完成单仓库扁平化与首个提交，当前收口断点为“推送 `GUI-EXPLORE` 远端并完成仓库状态校验”。
+- 下一步（P0）：完成 `git@github.com:gavinssr/GUI-EXPLORE.git` 远端推送，并确认默认分支可用。
+- 下一步（P1）：远端推送完成后，回到项目主线继续协商 P1-A Batch 2 primitive 开发清单。
+- 风险/依赖：需保留桌面上的 `FQL-GUI-Launcher` 原仓库备份，以防后续需要追溯旧提交历史。
