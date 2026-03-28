@@ -1,0 +1,38 @@
+---
+description: Bootstrap rules for cloud or parallel agents entering GUI-Explore
+alwaysApply: true
+---
+
+# Cloud Agent Bootstrap Rules
+
+## Entry Contract
+
+- 先识别 `GUI-Explore/` 是 governance root。
+- engineering root 固定为 `FQL-GUI-Launcher/`。
+- 不在 workspace 根目录实现业务代码或工程命令入口。
+
+## Required First Reads
+
+1. `AGENTS.md`
+2. `governance/README.md`
+3. `governance/schedule/breakpoint.md`
+4. `governance/strategy/policy-queue.md`
+5. `FQL-GUI-Launcher/AGENTS.md`
+6. 目标 package `AGENTS.md` 与 `.cursor/rules/*`
+
+## Verification Defaults
+
+- 优先确认当前 phase 与 breakpoint。
+- 进入 engineering root 后再执行命令。
+- 未建立统一 harness 命令前，不要自行发明新的根级工程入口。
+- design-system / registry / primitive preview 端口契约统一为 `3001`。
+
+## Artifact Expectations
+
+每次任务至少输出：
+
+- changed files
+- package scope
+- promotion candidate
+- 风险/阻塞
+- 下一步（P0/P1）

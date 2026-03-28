@@ -1,0 +1,38 @@
+---
+description: Workspace governance rules for GUI-Explore
+alwaysApply: true
+---
+
+# Workspace Governance Rules
+
+## Scope
+
+- `GUI-Explore/` 是治理层，不是业务代码实现层。
+- 工程执行根固定为 `FQL-GUI-Launcher/`。
+- 代码级命令、CI、Cloud Agent、artifact 与 PR 协议都应围绕 `FQL-GUI-Launcher/` 设计。
+
+## Required Reading Order
+
+1. `AGENTS.md`
+2. `governance/README.md`
+3. `governance/strategy/blueprint.md`
+4. `governance/strategy/policy-queue.md`
+5. `governance/milestones/history.md`
+6. `governance/milestones/changelog.md`
+7. `governance/schedule/breakpoint.md`
+8. `governance/schedule/session-log.md`
+9. `FQL-GUI-Launcher/AGENTS.md`
+10. target package `AGENTS.md` / `.cursor/rules/*`
+
+## Source Of Truth
+
+- 当前断点：`governance/schedule/breakpoint.md`
+- 对话日志：`governance/schedule/session-log.md`
+- 旧 `manage-*` 文件仅作跳转壳，不再承载正式事实
+
+## Write-Back Order
+
+1. `governance/schedule/session-log.md`
+2. `governance/schedule/breakpoint.md`
+3. `governance/milestones/changelog.md`（如阶段变化）
+4. `governance/strategy/*.md`（如战略变化）
