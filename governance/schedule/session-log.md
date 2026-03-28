@@ -69,3 +69,14 @@
 - 风险/阻塞：workflow 与 PR 模板已经落盘并被本地校验覆盖，但仍需推送到远端后才能真正触发 GitHub Actions；`semi-automate-writeback` 仍未落地。
 - 下一步（P0）：进入 Phase 5，执行第一轮定向垃圾回收并建立 doc-gardening / promotion review 周期。
 - 下一步（P1）：评估将 `semi-automate-writeback` 做成模板生成 + 字段完整性校验的最小实现。
+
+### 2026-03-28 / harness-engineering Phase 5 定向垃圾回收与长期治理
+
+- 本轮目标：执行第一轮定向垃圾回收，优先清理过期阶段文案、纯占位入口，并建立 `doc-gardening / promotion review` 周期入口。
+- 本轮产出：修正 `docs/architecture/monorepo.md` 中的过期 `Phase 3` 计划文案；新增 `docs/runbooks/doc-gardening.md`；扩写 `docs/exec-plans/active/README.md`、`docs/exec-plans/completed/README.md`、`docs/adr/README.md`、`docs/reviews/promotion/README.md`；新增 `docs/reviews/promotion/2026-03-28-phase-5-baseline.md`；将这些入口纳入 `scripts/harness-checks.mjs` 的 docs integrity 校验；完整通过 `pnpm run harness:verify` 与 `pnpm run check:artifact-presence ...`。
+- changed files：`FQL-GUI-Launcher/docs/architecture/monorepo.md`、`FQL-GUI-Launcher/docs/runbooks/doc-gardening.md`、`FQL-GUI-Launcher/docs/exec-plans/active/README.md`、`FQL-GUI-Launcher/docs/exec-plans/completed/README.md`、`FQL-GUI-Launcher/docs/adr/README.md`、`FQL-GUI-Launcher/docs/reviews/promotion/README.md`、`FQL-GUI-Launcher/docs/reviews/promotion/2026-03-28-phase-5-baseline.md`、`FQL-GUI-Launcher/docs/harness/effectiveness.md`、`FQL-GUI-Launcher/docs/index.md`、`FQL-GUI-Launcher/scripts/harness-checks.mjs`、`governance/schedule/breakpoint.md`、`governance/schedule/session-log.md`、`governance/milestones/changelog.md`、`.cursor/plans/harness_full_implementation_aa0fb96f.plan.md`
+- package scope：engineering root docs gardening + review cadence
+- promotion candidate：无
+- 风险/阻塞：当前只完成第一轮定向清理，没有做全量历史重写；`semi-automate-writeback` 仍未实现，收口仍依赖人工判断。
+- 下一步（P0）：进入 `semi-automate-writeback`，设计最小模板生成与字段校验流程。
+- 下一步（P1）：在下一次大 phase 收口时继续追加 promotion baseline 或正式候选项复盘。

@@ -33,6 +33,7 @@
 - `runbooks/local-dev.md`
 - `runbooks/registry.md`
 - `runbooks/consumer-acceptance.md`
+- `runbooks/doc-gardening.md`
 
 ### Structured Records
 
@@ -40,8 +41,9 @@
 - `exec-plans/completed/README.md`
 - `adr/README.md`
 - `reviews/promotion/README.md`
+- `reviews/promotion/2026-03-28-phase-5-baseline.md`
 
 ## 当前阶段
 
-- Phase 4：CI 与 Cloud Agent 接入已完成
-- 下一步进入 Phase 5，并继续补齐半自动写回与长期垃圾回收节奏
+- Phase 5：首轮定向垃圾回收已完成
+- 下一步进入 `semi-automate-writeback`，补齐最小模板化与字段校验

@@ -9,7 +9,7 @@ FQL-GUI-Launcher/
 ├── ai-agent-design-system/
 ├── projects/
 ├── pnpm-workspace.yaml
-└── package.json   # Phase 3 计划新增
+└── package.json   # unified harness entrypoint
 ```
 
 ## Role Split

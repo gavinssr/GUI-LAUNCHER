@@ -2,7 +2,7 @@
 
 ## 当前阶段
 
-当前进入 harness-engineering 的 `Phase 5：定向垃圾回收与长期治理准备`。
+当前进入 harness-engineering 的 `Writeback Automation：半自动写回模板化准备`。
 
 ## 当前真实进度
 
@@ -25,20 +25,21 @@
 - git root `.github/workflows/harness-verify.yml` 与 `.github/pull_request_template.md` 已建立。
 - Cloud Agent verifier / reviewer / gardener 模板已落到 `FQL-GUI-Launcher/docs/harness/templates/*`。
 - artifact / PR 协议已固化到 `docs/harness/cloud-agent.md`、`docs/harness/artifacts.md` 与 root PR template。
+- 第一轮定向垃圾回收已完成：过期 phase 文案已清理，`doc-gardening` runbook 与 `promotion review` 基线已建立，记录目录入口已从占位升级为正式使用约定。
 - `pnpm run harness:verify` 与 `pnpm run check:artifact-presence ...` 已完整通过。
-- 下一步断点转入 `Phase 5`，需要开始第一轮定向垃圾回收，并评估 `semi-automate-writeback` 的最小收口方案。
+- 下一步断点转入 `semi-automate-writeback`，需要把治理层与 repo 层写回做成最小模板生成与字段完整性校验流程。
 
 ## 下一步
 
 ### P0
 
-- 执行第一轮定向垃圾回收
-- 建立 doc-gardening / promotion review 周期
-- 识别仍然冗余、漂移或重复的治理 / docs / harness 入口
+- 为治理层与 repo 层定义统一 write-back 模板
+- 让模板覆盖 `changed files`、`package scope`、`promotion candidate`、风险/阻塞、下一步（P0/P1）
+- 增加字段完整性校验，避免收口漏项
 
 ### P1
 
-- 为 `semi-automate-writeback` 设计最小模板生成与字段校验方案
+- 评估是否为 `exec-plans`、`promotion review`、`ADR` 分别提供模板变体
 - 根据远端 CI 首次运行结果补充环境约定（Node / pnpm / secrets / artifact retention）
 
 ## 风险 / 依赖

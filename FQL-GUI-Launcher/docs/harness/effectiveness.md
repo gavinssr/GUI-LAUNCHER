@@ -15,3 +15,4 @@
 ## 运维信号
 
 - 文档漂移、规则膨胀、promotion candidate 漂移能被定期巡检发现
+- `doc-gardening` 与 `promotion review` 已有固定入口，不再只靠聊天记忆驱动

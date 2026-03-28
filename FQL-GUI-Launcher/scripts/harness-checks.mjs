@@ -164,6 +164,12 @@ function runDocsIntegrity() {
     "docs/runbooks/local-dev.md",
     "docs/runbooks/registry.md",
     "docs/runbooks/consumer-acceptance.md",
+    "docs/runbooks/doc-gardening.md",
+    "docs/exec-plans/active/README.md",
+    "docs/exec-plans/completed/README.md",
+    "docs/adr/README.md",
+    "docs/reviews/promotion/README.md",
+    "docs/reviews/promotion/2026-03-28-phase-5-baseline.md",
   ]
 
   const missing = requiredDocs.filter((docPath) => !exists(path.join(engineeringRoot, docPath)))

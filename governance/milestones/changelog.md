@@ -51,3 +51,10 @@
 - 变更说明：新增 git root `.github/workflows/harness-verify.yml` 与 `.github/pull_request_template.md`；补齐 Cloud Agent verifier / reviewer / gardener 模板；完善 artifact 协议；将 root workflow / PR 模板纳入 `governance-consistency` 与 artifact 路径校验；完整通过 `pnpm run harness:verify` 与 `pnpm run check:artifact-presence ...`。
 - 证据：`.github/workflows/harness-verify.yml`、`.github/pull_request_template.md`、`FQL-GUI-Launcher/docs/harness/cloud-agent.md`、`FQL-GUI-Launcher/docs/harness/artifacts.md`、`FQL-GUI-Launcher/docs/harness/templates/*`、`FQL-GUI-Launcher/scripts/harness-checks.mjs`
 - 对后续计划影响：Phase 5 可以开始第一轮定向垃圾回收，并评估 `semi-automate-writeback` 的落地顺序。
+
+### 2026-03-28 / Phase 5（定向垃圾回收与长期治理）完成
+
+- 变更类型：完成
+- 变更说明：修正 docs 中过期 phase 文案；新增 `docs/runbooks/doc-gardening.md`；将 `exec-plans`、`adr`、`reviews/promotion` 的占位入口补成带字段和使用时机的正式入口；新增 `Phase 5` promotion baseline 记录；把这些周期入口纳入 docs integrity 校验。
+- 证据：`FQL-GUI-Launcher/docs/runbooks/doc-gardening.md`、`FQL-GUI-Launcher/docs/reviews/promotion/2026-03-28-phase-5-baseline.md`、`FQL-GUI-Launcher/docs/exec-plans/*/README.md`、`FQL-GUI-Launcher/docs/adr/README.md`、`FQL-GUI-Launcher/scripts/harness-checks.mjs`
+- 对后续计划影响：下一步可以聚焦 `semi-automate-writeback`，把收口模板化与字段完整性校验纳入流程。
