@@ -80,3 +80,14 @@
 - 风险/阻塞：当前只完成第一轮定向清理，没有做全量历史重写；`semi-automate-writeback` 仍未实现，收口仍依赖人工判断。
 - 下一步（P0）：进入 `semi-automate-writeback`，设计最小模板生成与字段校验流程。
 - 下一步（P1）：在下一次大 phase 收口时继续追加 promotion baseline 或正式候选项复盘。
+
+### 2026-03-28 / semi-automate-writeback 最小模板化与字段校验
+
+- 本轮目标：为治理层与 repo 层补齐统一写回模板生成与字段完整性校验入口，并把它接入现有 harness 验证链。
+- 本轮产出：新增 `scripts/writeback-templates.mjs`；新增六类 writeback 模板；新增 `docs/runbooks/writeback.md`；在 `package.json` 中新增 `writeback:template`、`check:writeback-template`、`check:writeback-templates`；将 `check:writeback-templates` 接入 `harness:verify:governance`；更新 `docs/harness/agent-workflow.md`、`docs/index.md` 与 `governance/process/session-workflow.md` 指向新入口；完整通过 `pnpm run check:writeback-templates`、`pnpm run check:writeback-template -- session-log docs/harness/templates/writeback-session-log.md`、`pnpm run writeback:template -- breakpoint` 与 `pnpm run harness:verify`。
+- changed files：`FQL-GUI-Launcher/package.json`、`FQL-GUI-Launcher/scripts/writeback-templates.mjs`、`FQL-GUI-Launcher/scripts/harness-checks.mjs`、`FQL-GUI-Launcher/docs/runbooks/writeback.md`、`FQL-GUI-Launcher/docs/harness/templates/writeback-*.md`、`FQL-GUI-Launcher/docs/harness/agent-workflow.md`、`FQL-GUI-Launcher/docs/index.md`、`governance/process/session-workflow.md`、`governance/schedule/breakpoint.md`、`governance/schedule/session-log.md`、`governance/milestones/changelog.md`、`.cursor/plans/harness_full_implementation_aa0fb96f.plan.md`
+- package scope：engineering root writeback tooling + governance workflow
+- promotion candidate：无
+- 风险/阻塞：模板与校验已落地，但是否写回、写回到哪些正式文档仍需任务收口时人工裁决；远端 GitHub Actions 触发情况仍需 push 后观察。
+- 下一步（P0）：将这轮结果提交并推送，观察远端 CI 首次实际执行情况。
+- 下一步（P1）：后续真实任务中使用 `writeback:template`，再根据使用摩擦决定是否细分模板变体。

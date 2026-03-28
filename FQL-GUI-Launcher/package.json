@@ -9,7 +9,7 @@
     "harness:verify": "pnpm run harness:verify:design-system && pnpm run harness:verify:consumer && pnpm run harness:verify:governance && pnpm run harness:verify:harness",
     "harness:verify:design-system": "pnpm run check:port-contract && pnpm run check:primitive-preview-sync && pnpm run harness:registry && pnpm --dir ai-agent-design-system run build",
     "harness:verify:consumer": "pnpm run check:consumer-boundary && pnpm run check:token-usage && pnpm --dir projects/project-1 run build",
-    "harness:verify:governance": "pnpm run check:docs-integrity && pnpm run check:governance-consistency",
+    "harness:verify:governance": "pnpm run check:docs-integrity && pnpm run check:governance-consistency && pnpm run check:writeback-templates",
     "harness:verify:harness": "pnpm run harness:typecheck",
     "check:primitive-preview-sync": "node ./scripts/harness-checks.mjs primitive-preview-sync",
     "check:registry-consistency": "node ./scripts/harness-checks.mjs registry-consistency",
@@ -18,6 +18,9 @@
     "check:docs-integrity": "node ./scripts/harness-checks.mjs docs-integrity",
     "check:governance-consistency": "node ./scripts/harness-checks.mjs governance-consistency",
     "check:artifact-presence": "node ./scripts/harness-checks.mjs artifact-presence",
-    "check:port-contract": "node ./scripts/harness-checks.mjs port-contract"
+    "check:port-contract": "node ./scripts/harness-checks.mjs port-contract",
+    "check:writeback-template": "node ./scripts/writeback-templates.mjs validate",
+    "check:writeback-templates": "node ./scripts/writeback-templates.mjs validate-builtin",
+    "writeback:template": "node ./scripts/writeback-templates.mjs generate"
   }
 }

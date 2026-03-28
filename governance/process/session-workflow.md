@@ -42,6 +42,16 @@
 2. 条件写：阶段状态变化时更新 `governance/milestones/changelog.md`。
 3. 条件写：战略、阶段顺序或优先级策略变化时更新 `governance/strategy/blueprint.md` 或 `governance/strategy/policy-queue.md`。
 
+## 半自动写回辅助
+
+在 `FQL-GUI-Launcher/` 可使用：
+
+- `pnpm run writeback:template -- <kind>` 生成草稿
+- `pnpm run check:writeback-template -- <kind> <path>` 校验单个草稿
+- `pnpm run check:writeback-templates` 校验内置模板集合
+
+模板类型、示例与边界见 `FQL-GUI-Launcher/docs/runbooks/writeback.md`。
+
 ## 最小写回字段
 
 ### session-log

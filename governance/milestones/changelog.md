@@ -58,3 +58,10 @@
 - 变更说明：修正 docs 中过期 phase 文案；新增 `docs/runbooks/doc-gardening.md`；将 `exec-plans`、`adr`、`reviews/promotion` 的占位入口补成带字段和使用时机的正式入口；新增 `Phase 5` promotion baseline 记录；把这些周期入口纳入 docs integrity 校验。
 - 证据：`FQL-GUI-Launcher/docs/runbooks/doc-gardening.md`、`FQL-GUI-Launcher/docs/reviews/promotion/2026-03-28-phase-5-baseline.md`、`FQL-GUI-Launcher/docs/exec-plans/*/README.md`、`FQL-GUI-Launcher/docs/adr/README.md`、`FQL-GUI-Launcher/scripts/harness-checks.mjs`
 - 对后续计划影响：下一步可以聚焦 `semi-automate-writeback`，把收口模板化与字段完整性校验纳入流程。
+
+### 2026-03-28 / Writeback Automation（半自动写回）完成
+
+- 变更类型：完成
+- 变更说明：新增 `scripts/writeback-templates.mjs`；新增 session-log、breakpoint、changelog、exec-plan、promotion-review、ADR 六类写回模板；新增 `docs/runbooks/writeback.md`；将 `check:writeback-templates` 接入 `harness:verify:governance`，并提供单模板字段完整性校验与模板生成功能。
+- 证据：`FQL-GUI-Launcher/scripts/writeback-templates.mjs`、`FQL-GUI-Launcher/package.json`、`FQL-GUI-Launcher/docs/runbooks/writeback.md`、`FQL-GUI-Launcher/docs/harness/templates/writeback-*.md`、`governance/process/session-workflow.md`
+- 对后续计划影响：`Harness Full Implementation` 计划中的 todos 已全部完成，后续转入常态化使用、远端 CI 观测与周期治理。

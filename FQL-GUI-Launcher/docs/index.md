@@ -27,6 +27,12 @@
 - `harness/templates/verifier.md`
 - `harness/templates/reviewer.md`
 - `harness/templates/gardener.md`
+- `harness/templates/writeback-session-log.md`
+- `harness/templates/writeback-breakpoint.md`
+- `harness/templates/writeback-changelog.md`
+- `harness/templates/writeback-exec-plan.md`
+- `harness/templates/writeback-promotion-review.md`
+- `harness/templates/writeback-adr.md`
 
 ### Runbooks
 
@@ -34,6 +40,7 @@
 - `runbooks/registry.md`
 - `runbooks/consumer-acceptance.md`
 - `runbooks/doc-gardening.md`
+- `runbooks/writeback.md`
 
 ### Structured Records
 
@@ -45,5 +52,5 @@
 
 ## 当前阶段
 
-- Phase 5：首轮定向垃圾回收已完成
-- 下一步进入 `semi-automate-writeback`，补齐最小模板化与字段校验
+- Harness full implementation 已完成
+- 后续以周期性 `doc-gardening`、`promotion review` 与远端 CI 观测为主

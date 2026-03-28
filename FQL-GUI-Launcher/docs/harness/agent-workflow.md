@@ -35,3 +35,13 @@
 - 优先更新正式文档 source of truth
 - 明确是否影响 breakpoint / milestone / blueprint
 - 收口时更新 write-back targets
+
+## Writeback Helpers
+
+用于半自动写回的最小命令入口：
+
+- `pnpm run writeback:template -- <kind>`
+- `pnpm run check:writeback-template -- <kind> <path>`
+- `pnpm run check:writeback-templates`
+
+具体模板类型与示例见 `docs/runbooks/writeback.md` 和 `docs/harness/templates/writeback-*.md`。

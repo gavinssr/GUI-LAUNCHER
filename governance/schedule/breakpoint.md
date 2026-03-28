@@ -2,7 +2,7 @@
 
 ## 当前阶段
 
-当前进入 harness-engineering 的 `Writeback Automation：半自动写回模板化准备`。
+当前进入 harness-engineering 的 `Implementation Complete：进入常态治理与远端校验观察`。
 
 ## 当前真实进度
 
@@ -26,24 +26,24 @@
 - Cloud Agent verifier / reviewer / gardener 模板已落到 `FQL-GUI-Launcher/docs/harness/templates/*`。
 - artifact / PR 协议已固化到 `docs/harness/cloud-agent.md`、`docs/harness/artifacts.md` 与 root PR template。
 - 第一轮定向垃圾回收已完成：过期 phase 文案已清理，`doc-gardening` runbook 与 `promotion review` 基线已建立，记录目录入口已从占位升级为正式使用约定。
-- `pnpm run harness:verify` 与 `pnpm run check:artifact-presence ...` 已完整通过。
-- 下一步断点转入 `semi-automate-writeback`，需要把治理层与 repo 层写回做成最小模板生成与字段完整性校验流程。
+- 半自动写回已落地：`writeback:template`、`check:writeback-template`、`check:writeback-templates` 已可用，六类模板已就位，并纳入 `harness:verify:governance`。
+- `Harness Full Implementation` 计划中的 todos 已全部完成，`pnpm run harness:verify` 已完整通过。
+- 下一步从“补结构”转为“观察远端 CI + 在真实任务里使用这些模板与流程”。
 
 ## 下一步
 
 ### P0
 
-- 为治理层与 repo 层定义统一 write-back 模板
-- 让模板覆盖 `changed files`、`package scope`、`promotion candidate`、风险/阻塞、下一步（P0/P1）
-- 增加字段完整性校验，避免收口漏项
+- 推送当前提交并观察远端 GitHub Actions 首次真实运行
+- 在下一次真实任务收口时使用 `writeback:template` 与 `check:writeback-template`
 
 ### P1
 
-- 评估是否为 `exec-plans`、`promotion review`、`ADR` 分别提供模板变体
+- 根据真实使用摩擦决定是否细分更多 writeback 模板变体
 - 根据远端 CI 首次运行结果补充环境约定（Node / pnpm / secrets / artifact retention）
 
 ## 风险 / 依赖
 
 - 过渡期内旧 `manage-*` 与新 `governance/*` 同时存在，若后续继续误写旧文件，可能造成双真相源回流。
 - root workflow 尚需推送到远端后才能真正触发 GitHub Actions；当前通过的是本地命令与文件级校验。
-- `semi-automate-writeback` 尚未落地，收口记录仍依赖任务结束时人工判断。
+- 模板与校验只负责减少漏字段，不会替代任务收口时的人为裁决。
