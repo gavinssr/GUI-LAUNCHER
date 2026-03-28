@@ -1,0 +1,82 @@
+name: Harness Verify
+
+on:
+  pull_request:
+    branches:
+      - dev
+    paths:
+      - ".github/workflows/harness-verify.yml"
+      - ".github/pull_request_template.md"
+      - "AGENTS.md"
+      - "governance/**"
+      - "manage-*.md"
+      - "FQL-GUI-Launcher/**"
+  push:
+    branches:
+      - dev
+    paths:
+      - ".github/workflows/harness-verify.yml"
+      - ".github/pull_request_template.md"
+      - "AGENTS.md"
+      - "governance/**"
+      - "manage-*.md"
+      - "FQL-GUI-Launcher/**"
+
+jobs:
+  harness-verify:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: FQL-GUI-Launcher
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+          cache-dependency-path: FQL-GUI-Launcher/pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run harness verification
+        run: pnpm run harness:verify
+
+      - name: Check artifact protocol files
+        run: >
+          pnpm run check:artifact-presence
+          docs/index.md
+          docs/harness/verification-matrix.md
+          docs/harness/cloud-agent.md
+          docs/harness/artifacts.md
+          docs/harness/templates/verifier.md
+          docs/harness/templates/reviewer.md
+          docs/harness/templates/gardener.md
+          ../.github/pull_request_template.md
+          ../.github/workflows/harness-verify.yml
+
+      - name: Upload registry artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: design-system-registry
+          path: FQL-GUI-Launcher/ai-agent-design-system/public/r
+
+      - name: Upload harness reference docs
+        uses: actions/upload-artifact@v4
+        with:
+          name: harness-reference-docs
+          path: |
+            FQL-GUI-Launcher/docs/harness/cloud-agent.md
+            FQL-GUI-Launcher/docs/harness/artifacts.md
+            FQL-GUI-Launcher/docs/harness/templates/verifier.md
+            FQL-GUI-Launcher/docs/harness/templates/reviewer.md
+            FQL-GUI-Launcher/docs/harness/templates/gardener.md
+            .github/pull_request_template.md

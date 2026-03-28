@@ -2,7 +2,7 @@
 
 ## 当前阶段
 
-当前进入 harness-engineering 的 `Phase 4：CI 与 Cloud Agent 接入准备`。
+当前进入 harness-engineering 的 `Phase 5：定向垃圾回收与长期治理准备`。
 
 ## 当前真实进度
 
@@ -22,24 +22,27 @@
 - `FQL-GUI-Launcher/package.json` 已建立统一 `harness:*` / `check:*` 入口。
 - 首批检查脚本已落地：preview、registry、consumer boundary、token usage、docs integrity、governance consistency、artifact presence、port contract。
 - design-system `3001` 端口契约已落到脚本、docs 与 package scripts。
-- `pnpm run harness:verify` 已完整通过。
-- 下一步断点转入 `Phase 4：CI 与 Cloud Agent 接入`，需要把当前本地 harness 接到 GitHub Actions、Cloud Agent 模板和 artifact 协议。
+- git root `.github/workflows/harness-verify.yml` 与 `.github/pull_request_template.md` 已建立。
+- Cloud Agent verifier / reviewer / gardener 模板已落到 `FQL-GUI-Launcher/docs/harness/templates/*`。
+- artifact / PR 协议已固化到 `docs/harness/cloud-agent.md`、`docs/harness/artifacts.md` 与 root PR template。
+- `pnpm run harness:verify` 与 `pnpm run check:artifact-presence ...` 已完整通过。
+- 下一步断点转入 `Phase 5`，需要开始第一轮定向垃圾回收，并评估 `semi-automate-writeback` 的最小收口方案。
 
 ## 下一步
 
 ### P0
 
-- 新增 `.github/workflows/*`
-- 将 `harness:verify` 接入 CI
-- 为 Cloud Agent 建立 verifier / reviewer / gardener 任务模板
-- 固化 artifact 与 PR 协议
+- 执行第一轮定向垃圾回收
+- 建立 doc-gardening / promotion review 周期
+- 识别仍然冗余、漂移或重复的治理 / docs / harness 入口
 
 ### P1
 
-- 评估是否把 `check:artifact-presence` 接入 Cloud Agent / PR 流程
-- 根据 CI 落地结果补充环境约定（Node / pnpm / secrets / ports）
+- 为 `semi-automate-writeback` 设计最小模板生成与字段校验方案
+- 根据远端 CI 首次运行结果补充环境约定（Node / pnpm / secrets / artifact retention）
 
 ## 风险 / 依赖
 
 - 过渡期内旧 `manage-*` 与新 `governance/*` 同时存在，若后续继续误写旧文件，可能造成双真相源回流。
-- Cloud Agent 接入前，`check:artifact-presence` 仍未真正进入 PR / artifact 生产链路。
+- root workflow 尚需推送到远端后才能真正触发 GitHub Actions；当前通过的是本地命令与文件级校验。
+- `semi-automate-writeback` 尚未落地，收口记录仍依赖任务结束时人工判断。

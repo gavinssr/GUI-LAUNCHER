@@ -58,3 +58,14 @@
 - 风险/阻塞：`check:artifact-presence` 已有本地脚本入口，但尚未真正进入 Cloud Agent / PR artifact 流程。
 - 下一步（P0）：进入 Phase 4，接入 GitHub Actions、Cloud Agent 模板和 artifact 协议。
 - 下一步（P1）：根据 CI 接入结果细化环境契约与剩余自动化检查。
+
+### 2026-03-28 / harness-engineering Phase 4 CI 与 Cloud Agent 接入
+
+- 本轮目标：新增 GitHub Actions workflow，把 `harness:verify` 接入 CI，补齐 Cloud Agent verifier / reviewer / gardener 模板，并固化 artifact / PR 协议。
+- 本轮产出：新增 git root `.github/workflows/harness-verify.yml` 与 `.github/pull_request_template.md`；扩写 `docs/harness/cloud-agent.md` 与 `docs/harness/artifacts.md`；新增 `docs/harness/templates/verifier.md`、`reviewer.md`、`gardener.md`；将 Phase 4 关键文件纳入 `scripts/harness-checks.mjs` 的 docs / governance 校验；完整通过 `pnpm run harness:verify` 与 `pnpm run check:artifact-presence ...`。
+- changed files：`.github/workflows/harness-verify.yml`、`.github/pull_request_template.md`、`FQL-GUI-Launcher/docs/harness/cloud-agent.md`、`FQL-GUI-Launcher/docs/harness/artifacts.md`、`FQL-GUI-Launcher/docs/harness/templates/*`、`FQL-GUI-Launcher/docs/harness/verification-matrix.md`、`FQL-GUI-Launcher/docs/index.md`、`FQL-GUI-Launcher/scripts/harness-checks.mjs`、`governance/schedule/breakpoint.md`、`governance/schedule/session-log.md`、`governance/milestones/changelog.md`、`.cursor/plans/harness_full_implementation_aa0fb96f.plan.md`
+- package scope：git root CI integration + engineering root harness docs
+- promotion candidate：无
+- 风险/阻塞：workflow 与 PR 模板已经落盘并被本地校验覆盖，但仍需推送到远端后才能真正触发 GitHub Actions；`semi-automate-writeback` 仍未落地。
+- 下一步（P0）：进入 Phase 5，执行第一轮定向垃圾回收并建立 doc-gardening / promotion review 周期。
+- 下一步（P1）：评估将 `semi-automate-writeback` 做成模板生成 + 字段完整性校验的最小实现。

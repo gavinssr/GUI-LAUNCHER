@@ -158,6 +158,9 @@ function runDocsIntegrity() {
     "docs/harness/cloud-agent.md",
     "docs/harness/artifacts.md",
     "docs/harness/effectiveness.md",
+    "docs/harness/templates/verifier.md",
+    "docs/harness/templates/reviewer.md",
+    "docs/harness/templates/gardener.md",
     "docs/runbooks/local-dev.md",
     "docs/runbooks/registry.md",
     "docs/runbooks/consumer-acceptance.md",
@@ -174,6 +177,8 @@ function runDocsIntegrity() {
 function runGovernanceConsistency() {
   const rootAgentsPath = path.join(governanceRoot, "AGENTS.md")
   const breakpointPath = path.join(governanceRoot, "governance/schedule/breakpoint.md")
+  const workflowPath = path.join(governanceRoot, ".github/workflows/harness-verify.yml")
+  const prTemplatePath = path.join(governanceRoot, ".github/pull_request_template.md")
   const oldFiles = [
     "manage-blueprint.md",
     "manage-milestone.md",
@@ -188,6 +193,19 @@ function runGovernanceConsistency() {
 
   if (!exists(breakpointPath)) {
     fail("governance breakpoint is missing")
+  }
+
+  if (!exists(workflowPath)) {
+    fail("root GitHub workflow for harness verify is missing")
+  }
+
+  if (!exists(prTemplatePath)) {
+    fail("root pull request template is missing")
+  }
+
+  const workflowText = read(workflowPath)
+  if (!workflowText.includes("FQL-GUI-Launcher") || !workflowText.includes("pnpm run harness:verify")) {
+    fail("root GitHub workflow does not target FQL-GUI-Launcher harness verify")
   }
 
   for (const fileName of oldFiles) {

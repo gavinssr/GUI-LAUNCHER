@@ -44,3 +44,10 @@
 - 变更说明：新增 `FQL-GUI-Launcher/package.json` 作为统一命令入口；新增首批 `harness:*` / `check:*` 脚本；固定 design-system `3001` 端口契约；完整通过 `pnpm run harness:verify`。
 - 证据：`FQL-GUI-Launcher/package.json`、`FQL-GUI-Launcher/scripts/harness-checks.mjs`、`FQL-GUI-Launcher/ai-agent-design-system/package.json`
 - 对后续计划影响：Phase 4 可以开始接入 CI、Cloud Agent 模板与 artifact 协议。
+
+### 2026-03-28 / Phase 4（CI 与 Cloud Agent 接入）完成
+
+- 变更类型：完成
+- 变更说明：新增 git root `.github/workflows/harness-verify.yml` 与 `.github/pull_request_template.md`；补齐 Cloud Agent verifier / reviewer / gardener 模板；完善 artifact 协议；将 root workflow / PR 模板纳入 `governance-consistency` 与 artifact 路径校验；完整通过 `pnpm run harness:verify` 与 `pnpm run check:artifact-presence ...`。
+- 证据：`.github/workflows/harness-verify.yml`、`.github/pull_request_template.md`、`FQL-GUI-Launcher/docs/harness/cloud-agent.md`、`FQL-GUI-Launcher/docs/harness/artifacts.md`、`FQL-GUI-Launcher/docs/harness/templates/*`、`FQL-GUI-Launcher/scripts/harness-checks.mjs`
+- 对后续计划影响：Phase 5 可以开始第一轮定向垃圾回收，并评估 `semi-automate-writeback` 的落地顺序。

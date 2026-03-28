@@ -30,4 +30,7 @@
 
 - 统一命令入口是否存在
 - checks 是否可执行
-- CI / Cloud Agent 文档与命令是否一致
+- `.github/workflows/harness-verify.yml` 是否存在并调用 `pnpm run harness:verify`
+- `.github/pull_request_template.md` 是否与 artifact 协议一致
+- Cloud Agent 文档、角色模板与命令是否一致
+- `check:artifact-presence` 是否能覆盖关键协议文件

@@ -24,6 +24,9 @@
 - `harness/cloud-agent.md`
 - `harness/artifacts.md`
 - `harness/effectiveness.md`
+- `harness/templates/verifier.md`
+- `harness/templates/reviewer.md`
+- `harness/templates/gardener.md`
 
 ### Runbooks
 
@@ -40,5 +43,5 @@
 
 ## 当前阶段
 
-- Phase 2：Repo 记录系统下沉进行中
-- Phase 3 将在本目录稳定后，补齐 `FQL-GUI-Launcher/package.json` 与 `harness:*` / `check:*`
+- Phase 4：CI 与 Cloud Agent 接入已完成
+- 下一步进入 Phase 5，并继续补齐半自动写回与长期垃圾回收节奏
