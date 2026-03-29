@@ -55,3 +55,32 @@
 - promotion candidate（可为“无”）
 - 风险/阻塞
 - 下一步（P0/P1）
+
+## Cursor Cloud specific instructions
+
+### Environment
+
+- **Node.js 20** and **pnpm 9** are required (matching CI in `.github/workflows/harness-verify.yml`).
+- Engineering root is `FQL-GUI-Launcher/`. All `pnpm` commands run from there.
+- No external services, databases, Docker, or `.env` files are needed — this is a purely front-end monorepo.
+
+### Key commands (all from `FQL-GUI-Launcher/`)
+
+| Task | Command |
+|---|---|
+| Install deps | `pnpm install --frozen-lockfile` |
+| Lint | `pnpm run harness:lint` |
+| Typecheck | `pnpm run harness:typecheck` |
+| Build | `pnpm run harness:build` |
+| Full CI verification | `pnpm run harness:verify` |
+| Design system dev | `pnpm --dir ai-agent-design-system dev` (port 3001) |
+| Consumer app dev | `pnpm --dir projects/project-1 dev` (port 3000) |
+| Registry build | `pnpm run harness:registry` |
+
+### Non-obvious notes
+
+- The lockfile is pinned to **pnpm v9 format** (`lockfileVersion: '9.0'`). Using pnpm 10+ will cause `--frozen-lockfile` to fail.
+- `primitive-preview` at `/primitive-preview` on port 3001 redirects (307) to `/primitive-preview/button` by default.
+- The registry JSON is served at `/r/registry.json` on the design system dev server.
+- `project-1` depends on `ai-agent-design-system` via `workspace:*` and uses `transpilePackages` in Next.js config — both dev servers can run independently; the consumer app does not need the design system server running.
+- `harness:verify` is the same check that CI runs; always run it before pushing.
