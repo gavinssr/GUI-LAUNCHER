@@ -91,3 +91,14 @@
 - 风险/阻塞：模板与校验已落地，但是否写回、写回到哪些正式文档仍需任务收口时人工裁决；远端 GitHub Actions 触发情况仍需 push 后观察。
 - 下一步（P0）：将这轮结果提交并推送，观察远端 CI 首次实际执行情况。
 - 下一步（P1）：后续真实任务中使用 `writeback:template`，再根据使用摩擦决定是否细分模板变体。
+
+### 2026-03-29 / primitive preview 独立路由与侧边导航
+
+- 本轮目标：将 design-system 的 primitive preview 从单页全量展示升级为“每组件独立 URL + 左侧导航 + 主区只展示当前组件”，同时保持 `primitivePreviewRegistry` 为唯一事实源。
+- 本轮产出：`app/primitive-preview/page.tsx` 改为默认组件跳转入口；新增 `app/primitive-preview/layout.tsx` 与 `app/primitive-preview/primitive-preview-nav.tsx` 提供统一侧栏壳层；新增 `app/primitive-preview/[id]/page.tsx` 按 `registry.tsx` 单条渲染组件；`registry.tsx` 补充 `primitivePreviewIds`、`getPrimitivePreviewById` 与默认 id 导出；完整通过 `pnpm run check:primitive-preview-sync`、`pnpm run harness:verify:design-system` 与 `pnpm run harness:verify`。
+- changed files：`FQL-GUI-Launcher/ai-agent-design-system/app/primitive-preview/page.tsx`、`FQL-GUI-Launcher/ai-agent-design-system/app/primitive-preview/registry.tsx`、`FQL-GUI-Launcher/ai-agent-design-system/app/primitive-preview/layout.tsx`、`FQL-GUI-Launcher/ai-agent-design-system/app/primitive-preview/primitive-preview-nav.tsx`、`FQL-GUI-Launcher/ai-agent-design-system/app/primitive-preview/[id]/page.tsx`、`governance/schedule/session-log.md`、`governance/schedule/breakpoint.md`
+- package scope：`FQL-GUI-Launcher/ai-agent-design-system` + workspace governance write-back
+- promotion candidate：无
+- 风险/阻塞：当前自动化验证覆盖了 registry 同步、build 与 typecheck，但本轮未附带 3001 端口下的人工截图类 artifact；若后续还要扩到 `components/fql/*`，需要单独再做导航信息架构裁剪。
+- 下一步（P0）：观察远端 PR / CI 对这次真实任务的首次执行结果，并在需要时补人工访问记录。
+- 下一步（P1）：若后续继续扩展组件库预览范围，再评估是否把 `components/fql/*` 纳入统一预览入口，但保持 primitive registry 不被混用。
