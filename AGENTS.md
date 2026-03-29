@@ -49,3 +49,28 @@
 - promotion candidate（可为“无”）
 - 风险/阻塞
 - 下一步（P0/P1）
+
+## Cursor Cloud specific instructions
+
+### Monorepo structure
+- Workspace root: `/workspace`（管理层文档）
+- 代码 monorepo: `/workspace/FQL-GUI-Launcher`（pnpm workspace）
+- Design system: `FQL-GUI-Launcher/ai-agent-design-system` — Next.js 16 app, port **3001**
+- Consumer app: `FQL-GUI-Launcher/projects/project-1` — Next.js 16 app, port **3000**
+
+### Running dev servers
+- **Design system 必须运行在 port 3001**，因为 `@fql` 本地 registry URL 硬编码为 `http://localhost:3001/r/{name}.json`。
+- 启动命令: `cd FQL-GUI-Launcher/ai-agent-design-system && npx next dev --port 3001`
+- Consumer app: `cd FQL-GUI-Launcher/projects/project-1 && npx next dev --port 3000`
+- 注意: `pnpm dev` 不支持直接传 `--port` 参数给 Next.js，需使用 `npx next dev --port <port>`。
+
+### Lint / Build / Test
+- Lint: `pnpm lint`（在各子包中运行）
+- Build: `pnpm build`（在各子包中运行）
+- 无自动化测试框架配置，验证以 lint + dev server 启动 + 浏览器手动检查为准。
+
+### Dependencies
+- Node.js >= 18（VM 已安装 v22）
+- pnpm >= 9（VM 已安装 v10）
+- 无数据库、无 Docker、无外部服务依赖
+- `pnpm install` 从 `FQL-GUI-Launcher/` 根目录运行即可安装所有 workspace 依赖
