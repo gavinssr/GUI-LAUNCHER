@@ -192,3 +192,11 @@ export const primitivePreviewRegistry: PrimitivePreviewItem[] = [
     ),
   },
 ]
+
+export const primitivePreviewIds = primitivePreviewRegistry.map((item) => item.id)
+
+export function getPrimitivePreviewById(id: string) {
+  return primitivePreviewRegistry.find((item) => item.id === id)
+}
+
+export const defaultPrimitivePreviewId = primitivePreviewIds[0]
