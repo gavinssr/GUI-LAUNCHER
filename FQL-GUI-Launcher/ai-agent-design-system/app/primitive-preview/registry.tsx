@@ -1,5 +1,7 @@
 import type { ReactNode } from "react"
 
+import { ArrowRight, Download, Plus } from "lucide-react"
+
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
@@ -44,17 +46,94 @@ export const primitivePreviewRegistry: PrimitivePreviewItem[] = [
   {
     id: "button",
     title: "Button",
-    description: "覆盖 variant、size、disabled 和 asChild 常见用法。",
+    description: "展示主次按钮、危险态、图标尺寸、禁用与链接语义。",
     render: () => (
-      <div className="flex flex-wrap items-center gap-3">
-        <Button>默认</Button>
-        <Button variant="outline">outline</Button>
-        <Button variant="secondary">secondary</Button>
-        <Button variant="ghost">ghost</Button>
-        <Button variant="destructive">destructive</Button>
-        <Button size="sm">small</Button>
-        <Button size="lg">large</Button>
-        <Button disabled>disabled</Button>
+      <div className="space-y-6">
+        <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+          <div className="rounded-xl border border-border bg-card p-4">
+            <div className="mb-3 text-sm font-medium text-foreground">
+              主操作层级
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <Button>确认提交</Button>
+              <Button variant="secondary">保存草稿</Button>
+              <Button variant="outline">稍后处理</Button>
+            </div>
+          </div>
+
+          <div className="rounded-xl border border-border bg-card p-4">
+            <div className="mb-3 text-sm font-medium text-foreground">
+              弱操作与文本动作
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <Button variant="ghost">更多操作</Button>
+              <Button variant="link">查看详情</Button>
+              <Button asChild variant="link">
+                <a href="#primitive-button-link">文档跳转</a>
+              </Button>
+            </div>
+          </div>
+
+          <div className="rounded-xl border border-border bg-card p-4">
+            <div className="mb-3 text-sm font-medium text-foreground">
+              危险与禁用状态
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <Button variant="destructive">删除成员</Button>
+              <Button disabled>提交中</Button>
+              <Button variant="outline" disabled>
+                无权限编辑
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid gap-4 lg:grid-cols-[1.5fr_1fr]">
+          <div className="rounded-xl border border-border bg-card p-4">
+            <div className="mb-3 text-sm font-medium text-foreground">
+              尺寸与图标
+            </div>
+            <div className="flex flex-wrap items-center gap-3">
+              <Button size="xs">
+                <Plus />
+                新建
+              </Button>
+              <Button size="sm" variant="secondary">
+                <Download />
+                导出
+              </Button>
+              <Button>
+                查看报告
+                <ArrowRight />
+              </Button>
+              <Button size="lg" variant="outline">
+                批量同步
+                <ArrowRight />
+              </Button>
+              <Button size="icon-xs" variant="ghost" aria-label="新增">
+                <Plus />
+              </Button>
+              <Button size="icon-sm" variant="secondary" aria-label="下载">
+                <Download />
+              </Button>
+              <Button size="icon" aria-label="下一步">
+                <ArrowRight />
+              </Button>
+            </div>
+          </div>
+
+          <div className="rounded-xl border border-border bg-card p-4">
+            <div className="mb-2 text-sm font-medium text-foreground">
+              推荐组合
+            </div>
+            <div className="space-y-2 text-sm text-muted-foreground">
+              <p>default：页面首要确认动作</p>
+              <p>secondary / outline：次级操作与并列选择</p>
+              <p>ghost / link：工具条或低强调操作</p>
+              <p>destructive：删除、解绑、不可逆动作</p>
+            </div>
+          </div>
+        </div>
       </div>
     ),
   },

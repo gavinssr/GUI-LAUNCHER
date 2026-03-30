@@ -214,6 +214,61 @@
   --warning-foreground: var(--sys-text-black-h1);
   --marketing: var(--sys-marketing-default);
   --marketing-foreground: var(--sys-text-white-h1);
+
+  /* ===== Primitive semantic: button ===== */
+  --button-radius: var(--radius-large);
+  --button-radius-compact: var(--radius-default);
+
+  --button-disabled-bg: var(--sys-primary-disable);
+  --button-disabled-border: var(--sys-primary-disable);
+  --button-disabled-fg: var(--sys-text-black-h3);
+
+  --button-primary-bg: var(--sys-primary-default);
+  --button-primary-border: var(--sys-primary-default);
+  --button-primary-fg: var(--sys-text-white-h1);
+  --button-primary-hover-bg: var(--sys-primary-hover);
+  --button-primary-hover-border: var(--sys-primary-hover);
+  --button-primary-active-bg: var(--sys-primary-active);
+  --button-primary-active-border: var(--sys-primary-active);
+  --button-primary-shadow: 0 8px 18px rgba(77, 131, 255, 0.28);
+
+  --button-secondary-bg: var(--ref-brand-blue1);
+  --button-secondary-border: var(--ref-brand-blue3);
+  --button-secondary-fg: var(--sys-primary-active);
+  --button-secondary-hover-bg: var(--ref-brand-blue2);
+  --button-secondary-hover-border: var(--ref-brand-blue4);
+  --button-secondary-active-bg: var(--ref-brand-blue3);
+  --button-secondary-active-border: var(--ref-brand-blue5);
+  --button-secondary-shadow: 0 4px 10px rgba(77, 131, 255, 0.12);
+
+  --button-outline-bg: var(--ref-neutral-white1);
+  --button-outline-border: var(--ref-neutral-gray2-a20);
+  --button-outline-fg: var(--sys-text-black-h1);
+  --button-outline-hover-bg: var(--ref-neutral-gray6);
+  --button-outline-hover-border: var(--ref-brand-blue3);
+  --button-outline-active-bg: var(--ref-brand-blue1);
+  --button-outline-active-border: var(--ref-brand-blue4);
+  --button-outline-shadow: 0 1px 2px rgba(30, 37, 51, 0.04);
+
+  --button-ghost-bg: transparent;
+  --button-ghost-border: transparent;
+  --button-ghost-fg: var(--sys-text-black-h1);
+  --button-ghost-hover-bg: var(--ref-brand-blue1);
+  --button-ghost-hover-border: transparent;
+  --button-ghost-active-bg: var(--ref-brand-blue2);
+  --button-ghost-active-border: transparent;
+
+  --button-destructive-bg: var(--sys-error-default);
+  --button-destructive-border: var(--sys-error-default);
+  --button-destructive-fg: var(--sys-text-white-h1);
+  --button-destructive-hover-bg: var(--sys-error-hover);
+  --button-destructive-hover-border: var(--sys-error-hover);
+  --button-destructive-active-bg: var(--sys-error-active);
+  --button-destructive-active-border: var(--sys-error-active);
+  --button-destructive-shadow: 0 8px 18px rgba(229, 57, 72, 0.24);
+
+  --button-link-fg: var(--sys-primary-default);
+  --button-link-hover-fg: var(--sys-primary-active);
 }
 
 .dark {
@@ -266,6 +321,53 @@
   --warning-foreground: #1f1203;
   --marketing: #ff6694;
   --marketing-foreground: #220811;
+
+  --button-disabled-bg: rgba(255, 255, 255, 0.08);
+  --button-disabled-border: rgba(255, 255, 255, 0.08);
+  --button-disabled-fg: rgba(255, 255, 255, 0.38);
+
+  --button-primary-bg: #7ea7ff;
+  --button-primary-border: #7ea7ff;
+  --button-primary-fg: #08111f;
+  --button-primary-hover-bg: #99b8ff;
+  --button-primary-hover-border: #99b8ff;
+  --button-primary-active-bg: #6694ff;
+  --button-primary-active-border: #6694ff;
+  --button-primary-shadow: 0 10px 20px rgba(126, 167, 255, 0.25);
+
+  --button-secondary-bg: rgba(126, 167, 255, 0.14);
+  --button-secondary-border: rgba(126, 167, 255, 0.2);
+  --button-secondary-fg: var(--ref-neutral-white1);
+  --button-secondary-hover-bg: rgba(126, 167, 255, 0.2);
+  --button-secondary-hover-border: rgba(126, 167, 255, 0.28);
+  --button-secondary-active-bg: rgba(126, 167, 255, 0.26);
+  --button-secondary-active-border: rgba(126, 167, 255, 0.36);
+  --button-secondary-shadow: 0 6px 14px rgba(8, 17, 31, 0.28);
+
+  --button-outline-bg: rgba(255, 255, 255, 0.02);
+  --button-outline-border: rgba(255, 255, 255, 0.18);
+  --button-outline-fg: var(--ref-neutral-white1);
+  --button-outline-hover-bg: rgba(255, 255, 255, 0.06);
+  --button-outline-hover-border: rgba(126, 167, 255, 0.4);
+  --button-outline-active-bg: rgba(126, 167, 255, 0.12);
+  --button-outline-active-border: rgba(126, 167, 255, 0.46);
+  --button-outline-shadow: 0 1px 2px rgba(8, 17, 31, 0.36);
+
+  --button-ghost-fg: var(--ref-neutral-white1);
+  --button-ghost-hover-bg: rgba(126, 167, 255, 0.14);
+  --button-ghost-active-bg: rgba(126, 167, 255, 0.2);
+
+  --button-destructive-bg: #ff6b78;
+  --button-destructive-border: #ff6b78;
+  --button-destructive-fg: #1a0b0e;
+  --button-destructive-hover-bg: #ff8791;
+  --button-destructive-hover-border: #ff8791;
+  --button-destructive-active-bg: #ff5968;
+  --button-destructive-active-border: #ff5968;
+  --button-destructive-shadow: 0 10px 20px rgba(255, 107, 120, 0.24);
+
+  --button-link-fg: #7ea7ff;
+  --button-link-hover-fg: #99b8ff;
 }
 
 @layer base {
