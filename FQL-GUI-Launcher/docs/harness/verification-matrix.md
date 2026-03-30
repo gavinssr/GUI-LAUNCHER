@@ -25,6 +25,8 @@
 - 读取顺序是否清晰
 - breakpoint 是否为唯一真相源
 - 旧入口是否仅保留跳转壳
+- writeback 是否先能复原工程主线，再看见治理留痕
+- 非 governance task 是否避免只有治理写回、没有工程证据
 
 ## Harness Infra
 

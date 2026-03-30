@@ -8,16 +8,29 @@
 - 除治理文档外，不在本目录实现业务代码
 
 ## Required Reading Order
+### 默认任务（design system / consumer / registry）
+
 1. `./AGENTS.md`（本文件）
 2. `./governance/README.md`
-3. `./governance/strategy/blueprint.md`
-4. `./governance/strategy/policy-queue.md`
-5. `./governance/milestones/history.md`
-6. `./governance/milestones/changelog.md`
-7. `./governance/schedule/breakpoint.md`
-8. `./governance/schedule/session-log.md`
-9. `./FQL-GUI-Launcher/AGENTS.md`
-10. 目标子包 `AGENTS.md` 与对应 `.cursor/rules/*`
+3. `./governance/schedule/breakpoint.md`
+4. `./FQL-GUI-Launcher/AGENTS.md`
+5. `./FQL-GUI-Launcher/docs/index.md`
+6. 目标子包 `AGENTS.md` 与对应 `.cursor/rules/*`
+
+### 仅在以下情况补充治理阅读
+
+- 任务本身属于 `governance`
+- 当前真相源出现冲突，需要回溯正式裁决
+- 任务收口时需要判断是否更新里程碑、战略或优先级
+
+补充阅读顺序：
+
+1. `./governance/process/session-workflow.md`
+2. `./governance/schedule/session-log.md`
+3. `./governance/milestones/changelog.md`
+4. `./governance/milestones/history.md`
+5. `./governance/strategy/blueprint.md`
+6. `./governance/strategy/policy-queue.md`
 
 ## Governance File Responsibilities
 - `governance/strategy/blueprint.md`：项目战略与阶段蓝图（方向级）
@@ -30,11 +43,13 @@
 
 ## Session Workflow
 ### Session start
-- 先完成治理文档阅读与断点提炼，再进入 `FQL-GUI-Launcher` 代码工作。
+- 默认先提炼最小治理断点，再进入 `FQL-GUI-Launcher` 的工程入口与目标 package。
+- 只有在任务属于治理层或真相源冲突时，才扩展到完整治理文档。
 - 如治理信息冲突，以 `governance/schedule/breakpoint.md` 为当前真相源。
 
 ### Session in progress
 - 先判断任务归属：design system / consumer / registry / governance。
+- 非 governance task 一律先围绕 target package、工程目标、证据与验证推进，治理文档只负责约束与收口留痕。
 - 开发必须发生在 `FQL-GUI-Launcher`，治理目录只承载文档。
 
 ### Session close (write-back order)

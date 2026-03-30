@@ -2,10 +2,12 @@
 
 当前进入 `<phase>`.
 
+先写当前工程断点、证据状态与可执行下一步，再补治理依赖或流程阻塞。
+
 ## 当前断点
 
-- <confirmed facts>
-- <current stop point>
+- <confirmed engineering facts / evidence>
+- <current engineering stop point>
 
 ## 下一步
 
@@ -19,4 +21,4 @@
 
 ## 风险 / 依赖
 
-- <risk or dependency>
+- <engineering risk, dependency, or governance follow-up>
