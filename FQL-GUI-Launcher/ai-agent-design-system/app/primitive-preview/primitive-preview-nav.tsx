@@ -21,7 +21,11 @@ export function PrimitivePreviewNav() {
             key={item.id}
             href={`/primitive-preview/${item.id}`}
             className={cn(
-              buttonVariants({ variant: isActive ? "secondary" : "ghost" }),
+              buttonVariants({
+                variant: "secondary-outline",
+                size: "M",
+                status: isActive ? "default" : "inactive",
+              }),
               "h-auto justify-start px-3 py-2 text-left whitespace-normal"
             )}
           >

@@ -112,8 +112,8 @@ export default function ApiKeysPage() {
             description="填写用途、访问范围与生命周期策略，供管理员复核后发放。"
             footer={
               <div className="flex w-full flex-col gap-3 border-t border-border pt-6 sm:flex-row sm:justify-end">
-                <Button variant="outline">取消</Button>
-                <Button>创建 Key</Button>
+                <Button variant="secondary-outline">取消</Button>
+                <Button variant="primary-fill">创建 Key</Button>
               </div>
             }
           >
@@ -210,17 +210,24 @@ export default function ApiKeysPage() {
                       </div>
 
                       <div className="flex flex-wrap gap-2 lg:max-w-[220px] lg:justify-end">
-                        <Button variant="outline" size="sm">
+                        <Button variant="secondary-outline" size="S">
                           复制
                         </Button>
-                        <Button variant="ghost" size="sm">
+                        <Button variant="primary-outline" size="S">
                           重新生成
                         </Button>
                         <Button
                           variant={
-                            key.status === "danger" ? "outline" : "destructive"
+                            key.status === "danger"
+                              ? "secondary-outline"
+                              : "primary-fill"
                           }
-                          size="sm"
+                          size="S"
+                          className={
+                            key.status === "danger"
+                              ? undefined
+                              : "bg-destructive text-destructive-foreground hover:bg-[var(--sys-error-hover)] active:bg-[var(--sys-error-active)]"
+                          }
                         >
                           {key.status === "danger" ? "查看记录" : "停用"}
                         </Button>

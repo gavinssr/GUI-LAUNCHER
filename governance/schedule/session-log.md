@@ -102,3 +102,14 @@
 - 风险/阻塞：当前自动化验证覆盖了 registry 同步、build 与 typecheck，但本轮未附带 3001 端口下的人工截图类 artifact；若后续还要扩到 `components/fql/*`，需要单独再做导航信息架构裁剪。
 - 下一步（P0）：观察远端 PR / CI 对这次真实任务的首次执行结果，并在需要时补人工访问记录。
 - 下一步（P1）：若后续继续扩展组件库预览范围，再评估是否把 `components/fql/*` 纳入统一预览入口，但保持 primitive registry 不被混用。
+
+### 2026-03-30 / button primitive 正式建设与收尾
+
+- 本轮目标：以 Figma 设计稿为基准，正式落地第一个真实 primitive `Button`，补齐 primitive preview、迁移现有调用方，并完成本轮 harness / writeback 收口。
+- 本轮产出：`Button` 已切换为 Figma-first API，建立 `primary-fill | primary-outline | secondary-outline`、`XL | L | M | S | XS | mini` 与 `default | loading | inactive | disable` 组合；`primitive-preview/button` 已改为类型/尺寸/状态矩阵；`project-1` 与 design-system 内部旧用法已迁移到新语义；loading 动画已对齐参考 SVG；私有 loading 指示器已移出 `components/ui/*` 扫描范围，保留为未来 loading primitive 的前置内部资产；完整通过 `pnpm run harness:verify` 与 `pnpm run harness:lint`。
+- changed files：`FQL-GUI-Launcher/ai-agent-design-system/components/ui/button.tsx`、`FQL-GUI-Launcher/ai-agent-design-system/components/_internal/button-loading-indicator.tsx`、`FQL-GUI-Launcher/ai-agent-design-system/app/primitive-preview/registry.tsx`、`FQL-GUI-Launcher/ai-agent-design-system/app/primitive-preview/primitive-preview-nav.tsx`、`FQL-GUI-Launcher/ai-agent-design-system/components/ui/dialog.tsx`、`FQL-GUI-Launcher/ai-agent-design-system/app/page.tsx`、`FQL-GUI-Launcher/projects/project-1/app/page.tsx`、`FQL-GUI-Launcher/projects/project-1/app/team-invite/page.tsx`、`FQL-GUI-Launcher/projects/project-1/app/member-permissions/page.tsx`、`FQL-GUI-Launcher/projects/project-1/app/billing-usage/page.tsx`、`FQL-GUI-Launcher/projects/project-1/app/api-keys/page.tsx`、`FQL-GUI-Launcher/projects/project-1/app/access-review-flow/page.tsx`、`governance/schedule/session-log.md`、`governance/schedule/breakpoint.md`、`governance/milestones/changelog.md`
+- package scope：`FQL-GUI-Launcher/ai-agent-design-system` + `FQL-GUI-Launcher/projects/project-1` + workspace governance write-back
+- promotion candidate：无；`Button` 是 design-system primitive 本体，`loading` 仍为 `Button` 内部资产，暂不上推为独立 primitive
+- 风险/阻塞：当前“危险语义按钮”仍通过页面级 `className` 覆盖表达，尚未收敛为 `Button` 的正式 design-system 语义；若后续继续扩展 destructive / danger 按钮能力，需要先确定 API 方案再进入下一轮 primitive 演进。
+- 下一步（P0）：进入下一个 primitive 的正式建设，或先为 `Button` 补齐“危险语义”正式 API，避免业务页继续覆写样式。
+- 下一步（P1）：当 loading 需求脱离 `Button` 内部实现时，再将当前内部资产升级为正式 `loading` / `spinner` primitive，并补对应 preview 与验收矩阵。

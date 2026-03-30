@@ -172,9 +172,9 @@ export default function BillingUsagePage() {
 
         <footer className="sticky bottom-0 z-10 -mx-4 border-t border-border bg-background/95 px-4 py-4 backdrop-blur-sm sm:-mx-6 sm:px-6 lg:mx-0 lg:px-0">
           <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
-            <Button variant="outline">取消</Button>
-            <Button variant="secondary">导出账单</Button>
-            <Button>保存配置</Button>
+            <Button variant="secondary-outline">取消</Button>
+            <Button variant="secondary-outline">导出账单</Button>
+            <Button variant="primary-fill">保存配置</Button>
           </div>
         </footer>
       </div>

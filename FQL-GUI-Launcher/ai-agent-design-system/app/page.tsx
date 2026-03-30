@@ -36,8 +36,8 @@ export default function HomePage() {
             description="验证 FQL Field 对 label、说明和错误态的封装。"
             footer={
               <div className="flex gap-3">
-                <Button>提交</Button>
-                <Button variant="outline">取消</Button>
+                <Button variant="primary-fill">提交</Button>
+                <Button variant="secondary-outline">取消</Button>
               </div>
             }
           >

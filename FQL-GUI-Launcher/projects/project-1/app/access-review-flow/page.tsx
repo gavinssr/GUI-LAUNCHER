@@ -260,12 +260,13 @@ export default function AccessReviewFlowPage() {
                       </div>
 
                       <div className="flex flex-wrap gap-2">
-                        <Button type="button" variant="outline" size="sm">
+                        <Button type="button" variant="secondary-outline" size="S">
                           查看详情
                         </Button>
                         <Button
                           type="button"
-                          size="sm"
+                          variant="primary-fill"
+                          size="S"
                           disabled={item.status === "approved"}
                           onClick={() => handleSingleUpdate(item.id, "approved")}
                         >
@@ -273,8 +274,9 @@ export default function AccessReviewFlowPage() {
                         </Button>
                         <Button
                           type="button"
-                          variant="destructive"
-                          size="sm"
+                          variant="primary-fill"
+                          size="S"
+                          className="bg-destructive text-destructive-foreground hover:bg-[var(--sys-error-hover)] active:bg-[var(--sys-error-active)]"
                           disabled={item.status === "rejected"}
                           onClick={() => handleSingleUpdate(item.id, "rejected")}
                         >
@@ -302,6 +304,7 @@ export default function AccessReviewFlowPage() {
                 <div className="flex flex-col gap-2">
                   <Button
                     type="button"
+                    variant="primary-fill"
                     disabled={selectedCount === 0}
                     onClick={() => handleBulkUpdate("approved")}
                   >
@@ -309,13 +312,14 @@ export default function AccessReviewFlowPage() {
                   </Button>
                   <Button
                     type="button"
-                    variant="destructive"
+                    variant="primary-fill"
+                    className="bg-destructive text-destructive-foreground hover:bg-[var(--sys-error-hover)] active:bg-[var(--sys-error-active)]"
                     disabled={selectedCount === 0}
                     onClick={() => handleBulkUpdate("rejected")}
                   >
                     批量拒绝
                   </Button>
-                  <Button type="button" variant="secondary">
+                  <Button type="button" variant="secondary-outline">
                     导出
                   </Button>
                 </div>

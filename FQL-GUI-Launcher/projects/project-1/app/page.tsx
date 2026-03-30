@@ -126,8 +126,8 @@ export default function Home() {
         </section>
 
         <footer className="flex flex-col gap-3 border-t border-border pt-6 sm:flex-row sm:justify-end">
-          <Button variant="outline">取消</Button>
-          <Button>保存设置</Button>
+          <Button variant="secondary-outline">取消</Button>
+          <Button variant="primary-fill">保存设置</Button>
         </footer>
       </div>
     </main>

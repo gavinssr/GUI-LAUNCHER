@@ -234,7 +234,8 @@ export default function MemberPermissionsPage() {
 
               <div className="flex items-end">
                 <Button
-                  variant="outline"
+                  variant="secondary-outline"
+                  size="M"
                   className="w-full"
                   onClick={handleResetFilters}
                 >
@@ -295,17 +296,24 @@ export default function MemberPermissionsPage() {
                       </div>
 
                       <div className="flex flex-wrap gap-2">
-                        <Button variant="outline" size="sm">
+                        <Button variant="secondary-outline" size="S">
                           查看详情
                         </Button>
-                        <Button variant="ghost" size="sm">
+                        <Button variant="primary-outline" size="S">
                           调整角色
                         </Button>
                         <Button
                           variant={
-                            member.status === "inactive" ? "secondary" : "destructive"
+                            member.status === "inactive"
+                              ? "primary-outline"
+                              : "primary-fill"
                           }
-                          size="sm"
+                          size="S"
+                          className={
+                            member.status === "inactive"
+                              ? undefined
+                              : "bg-destructive text-destructive-foreground hover:bg-[var(--sys-error-hover)] active:bg-[var(--sys-error-active)]"
+                          }
                         >
                           {member.status === "inactive" ? "恢复" : "停用"}
                         </Button>
@@ -331,9 +339,14 @@ export default function MemberPermissionsPage() {
                   项（演示状态）
                 </div>
                 <div className="flex flex-col gap-2">
-                  <Button>批量启用</Button>
-                  <Button variant="destructive">批量禁用</Button>
-                  <Button variant="secondary">导出列表</Button>
+                  <Button variant="primary-fill">批量启用</Button>
+                  <Button
+                    variant="primary-fill"
+                    className="bg-destructive text-destructive-foreground hover:bg-[var(--sys-error-hover)] active:bg-[var(--sys-error-active)]"
+                  >
+                    批量禁用
+                  </Button>
+                  <Button variant="secondary-outline">导出列表</Button>
                 </div>
               </div>
             </FqlCard>

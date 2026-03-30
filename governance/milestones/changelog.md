@@ -65,3 +65,10 @@
 - 变更说明：新增 `scripts/writeback-templates.mjs`；新增 session-log、breakpoint、changelog、exec-plan、promotion-review、ADR 六类写回模板；新增 `docs/runbooks/writeback.md`；将 `check:writeback-templates` 接入 `harness:verify:governance`，并提供单模板字段完整性校验与模板生成功能。
 - 证据：`FQL-GUI-Launcher/scripts/writeback-templates.mjs`、`FQL-GUI-Launcher/package.json`、`FQL-GUI-Launcher/docs/runbooks/writeback.md`、`FQL-GUI-Launcher/docs/harness/templates/writeback-*.md`、`governance/process/session-workflow.md`
 - 对后续计划影响：`Harness Full Implementation` 计划中的 todos 已全部完成，后续转入常态化使用、远端 CI 观测与周期治理。
+
+### 2026-03-30 / Primitive Buildout（正式 primitive 建设）启动
+
+- 变更类型：定义调整
+- 变更说明：项目主线从“harness 完成后的常态治理与观察”正式切换到“真实 design-system primitive 建设”；以 `Button` 作为第一个正式 primitive 落地，完成 Figma-first API、preview 矩阵、consumer 迁移、loading SVG 对齐与完整 harness 收口。
+- 证据：`FQL-GUI-Launcher/ai-agent-design-system/components/ui/button.tsx`、`FQL-GUI-Launcher/ai-agent-design-system/components/_internal/button-loading-indicator.tsx`、`FQL-GUI-Launcher/ai-agent-design-system/app/primitive-preview/registry.tsx`、`FQL-GUI-Launcher/projects/project-1/app/*`、`governance/schedule/session-log.md`、`governance/schedule/breakpoint.md`
+- 对后续计划影响：后续任务默认进入“逐个正式建设 primitive”的节奏；若 `Button` 的危险语义要进入 design-system，应在下一轮先做 API 收敛，再继续扩展后续 primitive。

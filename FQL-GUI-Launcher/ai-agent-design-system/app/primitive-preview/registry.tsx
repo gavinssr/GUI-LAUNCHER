@@ -40,21 +40,123 @@ export type PrimitivePreviewItem = {
   render: () => ReactNode
 }
 
+const buttonPreviewVariants = [
+  { variant: "primary-fill" as const, label: "primary-fill" },
+  { variant: "primary-outline" as const, label: "primary-outline" },
+  { variant: "secondary-outline" as const, label: "secondary-outline" },
+]
+
+const buttonPreviewSizes = [
+  { size: "XL" as const, label: "XL" },
+  { size: "L" as const, label: "L" },
+  { size: "M" as const, label: "M" },
+  { size: "S" as const, label: "S" },
+  { size: "XS" as const, label: "XS" },
+  { size: "mini" as const, label: "mini" },
+]
+
+const buttonPreviewStatuses = [
+  { status: "default" as const, label: "default" },
+  { status: "loading" as const, label: "loading" },
+  { status: "inactive" as const, label: "inactive" },
+  { status: "disable" as const, label: "disable" },
+]
+
 export const primitivePreviewRegistry: PrimitivePreviewItem[] = [
   {
     id: "button",
     title: "Button",
-    description: "覆盖 variant、size、disabled 和 asChild 常见用法。",
+    description: "按 Figma 展示 type、size、status 三个维度的正式矩阵。",
     render: () => (
-      <div className="flex flex-wrap items-center gap-3">
-        <Button>默认</Button>
-        <Button variant="outline">outline</Button>
-        <Button variant="secondary">secondary</Button>
-        <Button variant="ghost">ghost</Button>
-        <Button variant="destructive">destructive</Button>
-        <Button size="sm">small</Button>
-        <Button size="lg">large</Button>
-        <Button disabled>disabled</Button>
+      <div className="flex flex-col gap-6">
+        <section className="flex flex-col gap-3">
+          <div className="text-sm font-medium text-foreground">类型</div>
+          <div className="flex flex-wrap gap-3">
+            {buttonPreviewVariants.map((item) => (
+              <Button key={item.variant} variant={item.variant}>
+                {item.label}
+              </Button>
+            ))}
+          </div>
+        </section>
+
+        <section className="flex flex-col gap-3">
+          <div className="text-sm font-medium text-foreground">尺寸</div>
+          <div className="flex flex-wrap items-end gap-4">
+            {buttonPreviewSizes.map((item) => (
+              <div
+                key={item.size}
+                className="flex min-w-20 flex-col items-center gap-2"
+              >
+                <Button size={item.size} variant="primary-fill">
+                  操作文本
+                </Button>
+                <span className="text-xs text-muted-foreground">
+                  {item.label}
+                </span>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="flex flex-col gap-3">
+          <div className="text-sm font-medium text-foreground">状态矩阵</div>
+          <div className="grid gap-4 xl:grid-cols-3">
+            {buttonPreviewVariants.map((variantItem) => (
+              <div
+                key={variantItem.variant}
+                className="flex flex-col gap-3 rounded-lg border border-border bg-muted/20 p-4"
+              >
+                <div className="text-sm font-medium text-foreground">
+                  {variantItem.label}
+                </div>
+                {buttonPreviewStatuses.map((statusItem) => (
+                  <div
+                    key={statusItem.status}
+                    className="flex items-center justify-between gap-3"
+                  >
+                    <span className="text-xs text-muted-foreground">
+                      {statusItem.label}
+                    </span>
+                    <Button
+                      variant={variantItem.variant}
+                      size="L"
+                      status={statusItem.status}
+                      className="min-w-32"
+                    >
+                      操作文本
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="flex flex-col gap-3">
+          <div className="text-sm font-medium text-foreground">
+            loading 小尺寸对照
+          </div>
+          <div className="flex flex-wrap items-end gap-4">
+            {buttonPreviewSizes.slice(2).map((item) => (
+              <div
+                key={`loading-${item.size}`}
+                className="flex min-w-20 flex-col items-center gap-2"
+              >
+                <Button
+                  variant="primary-outline"
+                  size={item.size}
+                  status="loading"
+                >
+                  操作文本
+                </Button>
+                <span className="text-xs text-muted-foreground">
+                  {item.label}
+                </span>
+              </div>
+            ))}
+          </div>
+        </section>
       </div>
     ),
   },
@@ -125,14 +227,16 @@ export const primitivePreviewRegistry: PrimitivePreviewItem[] = [
             <CardTitle>默认尺寸</CardTitle>
             <CardDescription>Card default size</CardDescription>
             <CardAction>
-              <Button size="sm" variant="outline">
+              <Button size="S" variant="secondary-outline">
                 操作
               </Button>
             </CardAction>
           </CardHeader>
           <CardContent>内容区示例</CardContent>
           <CardFooter>
-            <Button size="sm">提交</Button>
+            <Button size="S" variant="primary-fill">
+              提交
+            </Button>
           </CardFooter>
         </Card>
         <Card size="sm">
@@ -175,7 +279,7 @@ export const primitivePreviewRegistry: PrimitivePreviewItem[] = [
     render: () => (
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant="outline">打开 Dialog</Button>
+          <Button variant="secondary-outline">打开 Dialog</Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
@@ -185,7 +289,7 @@ export const primitivePreviewRegistry: PrimitivePreviewItem[] = [
             </DialogDescription>
           </DialogHeader>
           <DialogFooter showCloseButton>
-            <Button>确认</Button>
+            <Button variant="primary-fill">确认</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

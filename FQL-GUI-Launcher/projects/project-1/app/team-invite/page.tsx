@@ -142,8 +142,8 @@ export default function TeamInvitePage() {
         </section>
 
         <footer className="flex flex-col gap-3 border-t border-border pt-6 sm:flex-row sm:justify-end">
-          <Button variant="outline">取消</Button>
-          <Button>发送邀请</Button>
+          <Button variant="secondary-outline">取消</Button>
+          <Button variant="primary-fill">发送邀请</Button>
         </footer>
       </div>
     </main>

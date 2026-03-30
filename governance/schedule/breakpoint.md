@@ -2,7 +2,7 @@
 
 ## 当前阶段
 
-当前进入 harness-engineering 的 `Implementation Complete：进入常态治理与远端校验观察`。
+当前进入 design-system primitive 的 `正式建设启动：以 Button 作为第一个真实 primitive 收口验收`。
 
 ## 当前真实进度
 
@@ -28,23 +28,25 @@
 - 第一轮定向垃圾回收已完成：过期 phase 文案已清理，`doc-gardening` runbook 与 `promotion review` 基线已建立，记录目录入口已从占位升级为正式使用约定。
 - 半自动写回已落地：`writeback:template`、`check:writeback-template`、`check:writeback-templates` 已可用，六类模板已就位，并纳入 `harness:verify:governance`。
 - `Harness Full Implementation` 计划中的 todos 已全部完成，`pnpm run harness:verify` 已完整通过。
-- 下一步从“补结构”转为“观察远端 CI + 在真实任务里使用这些模板与流程”。
+- 当前主线已从“补 harness 结构”切到“正式建设真实 primitive”；`Button` 已作为首个真实 primitive 落地。
 - `ai-agent-design-system/app/primitive-preview` 已完成组件级独立路由与侧边导航改造：`/primitive-preview` 默认跳转到首个 primitive，`/primitive-preview/[id]` 只展示单组件，导航与展示继续共用 `primitivePreviewRegistry` 作为单一事实源。
 - 本轮已通过 `pnpm run check:primitive-preview-sync`、`pnpm run harness:verify:design-system` 与 `pnpm run harness:verify`，确认预览路由改造未破坏 design-system、consumer 与 governance 闭环。
+- `Button` 已对齐 Figma 设计稿，正式建立 `variant / size / status` 三维矩阵；loading SVG 已与设计参考对齐，且内部 loading 指示器已移出 `components/ui/*` 扫描范围，不再阻塞 primitive preview harness。
+- `project-1` 与 design-system 内部所有已受影响的 `Button` 调用已完成迁移，并通过 `harness:verify` 与 `harness:lint`。
 
 ## 下一步
 
 ### P0
 
-- 观察远端 GitHub Actions / PR 对本次 primitive preview 改造的首次真实运行结果
-- 在下一次真实任务收口时使用 `writeback:template` 与 `check:writeback-template`
-- 观察 primitive preview 新路由在真实使用中的信息架构是否足够清晰，必要时补充顶部返回入口或更细粒度分类导航
+- 继续下一个 primitive 的正式建设，保持“先 design-system primitive、后业务消费”的推进顺序
+- 决定 `Button` 是否在下一轮补齐“危险语义按钮”正式 API，避免业务页继续依赖 `className` 覆写
+- 观察远端 GitHub Actions / PR 对本轮 button primitive 真实落地的首次运行结果
 
 ### P1
 
 - 根据真实使用摩擦决定是否细分更多 writeback 模板变体
-- 根据远端 CI 首次运行结果补充环境约定（Node / pnpm / secrets / artifact retention）
 - 若后续 primitive 数量持续增长，评估是否需要在 `primitivePreviewRegistry` 上增加分组元信息，同时保持 `check:primitive-preview-sync` 兼容
+- 当 loading 能力脱离 `Button` 内部实现时，再评估是否把当前内部资产升级为正式独立 primitive
 
 ## 风险 / 依赖
 
@@ -52,3 +54,4 @@
 - 远端 workflow 已具备触发条件，但本轮收口时尚未附带截图或访问录屏类 artifact，UI 可用性仍主要依赖本地命令与静态构建验证。
 - 模板与校验只负责减少漏字段，不会替代任务收口时的人为裁决。
 - 当前侧边导航直接展示每个 primitive 的描述文案；若 primitive 数量显著上升，导航面板长度和扫描成本可能需要进一步治理。
+- 当前 `Button` 的“危险语义”仍停留在页面层覆写，尚未沉淀为 design-system 正式语义能力；若不继续收敛，后续 primitive 一致性会继续受影响。
