@@ -31,6 +31,7 @@ import {
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Navbar } from "@/components/ui/navbar"
 import { Separator } from "@/components/ui/separator"
 
 export type PrimitivePreviewItem = {
@@ -62,15 +63,42 @@ const buttonPreviewStatuses = [
   { status: "disable" as const, label: "disable" },
 ]
 
+const navbarHeaderActions = [
+  { key: "searcher", icon: "searcher" as const, label: "搜索" },
+  { key: "cart", icon: "cart" as const, label: "购物车" },
+  { key: "more", icon: "more" as const, label: "更多" },
+]
+
+const navbarTabsActions = [
+  { key: "search", icon: "search" as const, label: "搜索" },
+  { key: "cart", icon: "cart" as const, label: "购物车" },
+  { key: "more", icon: "more" as const, label: "更多" },
+]
+
+const navbarStackedActions = [
+  { key: "support", icon: "support" as const, label: "文本" },
+  { key: "calendar", icon: "calendar" as const, label: "文本" },
+  { key: "bag", icon: "bag" as const, label: "文本" },
+]
+
+const navbarTabs = [
+  { key: "option-1", label: "选项", active: true },
+  { key: "option-2", label: "选项" },
+  { key: "option-3", label: "选项" },
+]
+
 export const primitivePreviewRegistry: PrimitivePreviewItem[] = [
   {
     id: "button",
-    title: "Button",
-    description: "按 Figma 展示 type、size、status 三个维度的正式矩阵。",
+    title: "Button / 按钮",
+    description:
+      "Bilingual preview for the Figma-aligned button matrix across type, size, and status. / 按 Figma 展示类型、尺寸、状态三维矩阵。",
     render: () => (
       <div className="flex flex-col gap-6">
         <section className="flex flex-col gap-3">
-          <div className="text-sm font-medium text-foreground">类型</div>
+          <div className="text-sm font-medium text-foreground">
+            Variants / 类型
+          </div>
           <div className="flex flex-wrap gap-3">
             {buttonPreviewVariants.map((item) => (
               <Button key={item.variant} variant={item.variant}>
@@ -81,7 +109,9 @@ export const primitivePreviewRegistry: PrimitivePreviewItem[] = [
         </section>
 
         <section className="flex flex-col gap-3">
-          <div className="text-sm font-medium text-foreground">尺寸</div>
+          <div className="text-sm font-medium text-foreground">
+            Sizes / 尺寸
+          </div>
           <div className="flex flex-wrap items-end gap-4">
             {buttonPreviewSizes.map((item) => (
               <div
@@ -100,7 +130,9 @@ export const primitivePreviewRegistry: PrimitivePreviewItem[] = [
         </section>
 
         <section className="flex flex-col gap-3">
-          <div className="text-sm font-medium text-foreground">状态矩阵</div>
+          <div className="text-sm font-medium text-foreground">
+            Status Matrix / 状态矩阵
+          </div>
           <div className="grid gap-4 xl:grid-cols-3">
             {buttonPreviewVariants.map((variantItem) => (
               <div
@@ -135,7 +167,7 @@ export const primitivePreviewRegistry: PrimitivePreviewItem[] = [
 
         <section className="flex flex-col gap-3">
           <div className="text-sm font-medium text-foreground">
-            loading 小尺寸对照
+            Compact Loading / 小尺寸 loading 对照
           </div>
           <div className="flex flex-wrap items-end gap-4">
             {buttonPreviewSizes.slice(2).map((item) => (
@@ -155,6 +187,71 @@ export const primitivePreviewRegistry: PrimitivePreviewItem[] = [
                 </span>
               </div>
             ))}
+          </div>
+        </section>
+      </div>
+    ),
+  },
+  {
+    id: "navbar",
+    title: "Navbar / 标题栏",
+    description:
+      "Full mobile navbar family from the Figma section, including title, tabs, and search patterns. / 覆盖 Figma 中移动端页面头部的标题、Tabs、搜索等完整形态。",
+    render: () => (
+      <div className="flex flex-col gap-6">
+        <section className="flex flex-col gap-3">
+          <div className="text-sm font-medium text-foreground">
+            Basic Header / 基础头部
+          </div>
+          <div className="space-y-3 rounded-xl border border-border bg-muted/20 p-4">
+            <Navbar variant="actions" actions={navbarHeaderActions} />
+            <Navbar variant="title" title="标题文本" />
+          </div>
+        </section>
+
+        <section className="flex flex-col gap-3">
+          <div className="text-sm font-medium text-foreground">
+            Title Variants / 标题类变体
+          </div>
+          <div className="space-y-3 rounded-xl border border-border bg-muted/20 p-4">
+            <Navbar
+              variant="title-actions"
+              title="标题文本"
+              actions={navbarStackedActions}
+            />
+            <Navbar
+              variant="title-text-action"
+              title="标题文本"
+              actionText="操作文本"
+            />
+          </div>
+        </section>
+
+        <section className="flex flex-col gap-3">
+          <div className="text-sm font-medium text-foreground">
+            Tabs Variant / Tabs 变体
+          </div>
+          <div className="rounded-xl border border-border bg-muted/20 p-4">
+            <Navbar variant="tabs" tabs={navbarTabs} actions={navbarTabsActions} />
+          </div>
+        </section>
+
+        <section className="flex flex-col gap-3">
+          <div className="text-sm font-medium text-foreground">
+            Search Variants / 搜索类变体
+          </div>
+          <div className="space-y-3 rounded-xl border border-border bg-muted/20 p-4">
+            <Navbar
+              variant="search"
+              searchPlaceholder="输入文本"
+              searchActionLabel="搜索"
+            />
+            <Navbar
+              variant="search-action"
+              searchValue="输入文本"
+              showSearchClearButton
+              actions={[{ key: "cart", icon: "cart", label: "购物车" }]}
+            />
           </div>
         </section>
       </div>
