@@ -29,13 +29,16 @@ import {
   FieldSet,
   FieldTitle,
 } from "@/components/ui/field"
+import { HomeIndicator } from "@/components/ui/home-indicator"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Navbar } from "@/components/ui/navbar"
 import { Separator } from "@/components/ui/separator"
+import { StatusBar } from "@/components/ui/status-bar"
 
 export type PrimitivePreviewItem = {
   id: string
+  primitiveIds: string[]
   title: string
   description: string
   render: () => ReactNode
@@ -94,6 +97,7 @@ function NavbarPreviewSurface({ children }: { children: ReactNode }) {
 export const primitivePreviewRegistry: PrimitivePreviewItem[] = [
   {
     id: "button",
+    primitiveIds: ["button"],
     title: "Button / 按钮",
     description:
       "Bilingual preview for the Figma-aligned button matrix across type, size, and status. / 按 Figma 展示类型、尺寸、状态三维矩阵。",
@@ -198,6 +202,7 @@ export const primitivePreviewRegistry: PrimitivePreviewItem[] = [
   },
   {
     id: "navbar",
+    primitiveIds: ["navbar"],
     title: "Navbar / 标题栏",
     description:
       "Full mobile navbar family from the Figma section, including title, tabs, and search patterns. / 覆盖 Figma 中移动端页面头部的标题、Tabs、搜索等完整形态。",
@@ -280,7 +285,58 @@ export const primitivePreviewRegistry: PrimitivePreviewItem[] = [
     ),
   },
   {
+    id: "iphone-common",
+    primitiveIds: ["status-bar", "home-indicator"],
+    title: "iPhone通用组件",
+    description:
+      "集中展示 iPhone 系统级基础组件，包括 Status Bar 与 Home Indicator。 / Shared preview for iPhone system primitives, including Status Bar and Home Indicator.",
+    render: () => (
+      <div className="flex flex-col gap-6">
+        <section className="flex flex-col gap-3">
+          <div className="text-sm font-medium text-foreground">
+            Status Bar / 状态栏
+          </div>
+          <div className="grid gap-4 xl:grid-cols-2">
+            <div className="space-y-3 rounded-xl border border-border bg-[var(--sys-page-background-fill)] p-4">
+              <div className="text-xs text-muted-foreground">Dark foreground</div>
+              <div className="w-fit bg-[var(--ref-neutral-white1)]">
+                <StatusBar />
+              </div>
+            </div>
+            <div className="space-y-3 rounded-xl border border-border bg-[var(--sys-page-background-fill)] p-4">
+              <div className="text-xs text-muted-foreground">Light foreground</div>
+              <div className="w-fit bg-[var(--sys-text-black-h1)]">
+                <StatusBar foreground="light" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="flex flex-col gap-3">
+          <div className="text-sm font-medium text-foreground">
+            Home Indicator / 底部横条
+          </div>
+          <div className="grid gap-4 xl:grid-cols-2">
+            <div className="space-y-3 rounded-xl border border-border bg-[var(--sys-page-background-fill)] p-4">
+              <div className="text-xs text-muted-foreground">Dark foreground</div>
+              <div className="w-fit bg-[var(--ref-neutral-white1)]">
+                <HomeIndicator />
+              </div>
+            </div>
+            <div className="space-y-3 rounded-xl border border-border bg-[var(--sys-page-background-fill)] p-4">
+              <div className="text-xs text-muted-foreground">Light foreground</div>
+              <div className="w-fit bg-[var(--sys-text-black-h1)]">
+                <HomeIndicator foreground="light" />
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    ),
+  },
+  {
     id: "badge",
+    primitiveIds: ["badge"],
     title: "Badge",
     description: "展示所有 badge 语义变体。",
     render: () => (
@@ -296,6 +352,7 @@ export const primitivePreviewRegistry: PrimitivePreviewItem[] = [
   },
   {
     id: "input",
+    primitiveIds: ["input"],
     title: "Input",
     description: "展示默认、禁用和错误态。",
     render: () => (
@@ -308,6 +365,7 @@ export const primitivePreviewRegistry: PrimitivePreviewItem[] = [
   },
   {
     id: "label",
+    primitiveIds: ["label"],
     title: "Label",
     description: "展示与 input 的基础组合。",
     render: () => (
@@ -319,6 +377,7 @@ export const primitivePreviewRegistry: PrimitivePreviewItem[] = [
   },
   {
     id: "separator",
+    primitiveIds: ["separator"],
     title: "Separator",
     description: "展示 horizontal 与 vertical 两种方向。",
     render: () => (
@@ -337,6 +396,7 @@ export const primitivePreviewRegistry: PrimitivePreviewItem[] = [
   },
   {
     id: "card",
+    primitiveIds: ["card"],
     title: "Card",
     description: "展示 default/sm 尺寸和 header/action/footer 结构。",
     render: () => (
@@ -370,6 +430,7 @@ export const primitivePreviewRegistry: PrimitivePreviewItem[] = [
   },
   {
     id: "field",
+    primitiveIds: ["field"],
     title: "Field",
     description: "展示 vertical 与 horizontal 布局和错误信息。",
     render: () => (
@@ -393,6 +454,7 @@ export const primitivePreviewRegistry: PrimitivePreviewItem[] = [
   },
   {
     id: "dialog",
+    primitiveIds: ["dialog"],
     title: "Dialog",
     description: "通过 trigger 打开对话框，验证基础交互和布局。",
     render: () => (

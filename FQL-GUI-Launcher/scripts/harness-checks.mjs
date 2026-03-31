@@ -51,23 +51,31 @@ function runPrimitivePreviewSync() {
   const primitiveFiles = listFiles(primitiveDir, (filePath) => filePath.endsWith(".tsx"))
   const primitiveIds = primitiveFiles.map((filePath) => path.basename(filePath, ".tsx")).sort()
   const registryText = read(registryPath)
-  const previewIds = [...registryText.matchAll(/id:\s*"([^"]+)"/g)].map((match) => match[1]).sort()
+  const coveredPrimitiveIds = [
+    ...registryText.matchAll(/primitiveIds:\s*\[([\s\S]*?)\]/g),
+  ]
+    .flatMap((match) => [...match[1].matchAll(/"([^"]+)"/g)].map((idMatch) => idMatch[1]))
+    .sort()
 
-  const missingPreview = primitiveIds.filter((id) => !previewIds.includes(id))
-  const stalePreview = previewIds.filter((id) => !primitiveIds.includes(id))
+  const missingPreview = primitiveIds.filter((id) => !coveredPrimitiveIds.includes(id))
+  const stalePreview = coveredPrimitiveIds.filter((id) => !primitiveIds.includes(id))
 
   if (missingPreview.length || stalePreview.length) {
     fail(
       [
-        missingPreview.length ? `missing preview ids: ${missingPreview.join(", ")}` : "",
-        stalePreview.length ? `stale preview ids: ${stalePreview.join(", ")}` : "",
+        missingPreview.length
+          ? `missing primitive preview coverage: ${missingPreview.join(", ")}`
+          : "",
+        stalePreview.length
+          ? `stale primitive preview coverage: ${stalePreview.join(", ")}`
+          : "",
       ]
         .filter(Boolean)
         .join(" | "),
     )
   }
 
-  pass("primitive preview registry matches components/ui")
+  pass("primitive preview coverage matches components/ui")
 }
 
 function runRegistryConsistency() {
