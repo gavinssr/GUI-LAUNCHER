@@ -23,6 +23,12 @@
 - `ai-agent-design-system/public/r/*` 等生成物路径
 - 相关文档或 review 路径，例如 `docs/exec-plans/*`、`docs/reviews/promotion/*`
 
+## Manual Visual Artifact Rule
+
+- 当 artifact 依赖 preview 肉眼观察、截图或录屏时，由用户执行并回传。
+- 助手负责在执行前明确需要用户检查的路由、观察点与回传格式，并在收到用户结果后再把摘要写入任务结论或治理记录。
+- 未收到用户回传前，不应把视觉 artifact 标记为“已完成”。
+
 ## Cloud Agent PR Expectations
 
 - 使用 `.github/pull_request_template.md`

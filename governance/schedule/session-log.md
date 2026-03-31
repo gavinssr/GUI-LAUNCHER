@@ -135,3 +135,27 @@
 - 风险/阻塞：当前 `Navbar` 的布局与交互细节已更贴近 Figma，但返回箭头、搜索 icon、右侧 icon 按钮与删除按钮仍未替换为设计稿原始 SVG 资产；若没有用户补充 SVG 或新的可下载路径，本轮只能保留现有近似 icon 实现。
 - 下一步（P0）：等待用户提供 `Navbar` 相关原始 SVG 资产，收到后替换当前近似 icon，并再次执行 preview 验证与 harness 收口。
 - 下一步（P1）：在原始 icon 资产补齐后，再决定是否为其他已落地 primitive 追加同等级别的 Figma 资产回填策略。
+
+### 2026-03-31 / iPhone 通用 primitive 与 preview 框架收口后的 harness 执行补完
+
+- 本轮目标：对照最近一次正式写回后的 git 提交，补完本轮真实变动所需的 harness 执行动作，并以机械校验方式确认 design-system / consumer / governance / harness 链路仍然闭环。
+- 本轮产出：已确认 `fdc7281` 之后新增 3 个未写回提交，覆盖 `Navbar` 收尾、`StatusBar` / `HomeIndicator` 新增、`primitive-preview` 框架与样式优化，以及 `primitive-preview-sync` 校验逻辑调整；按“跳过肉眼预览校验、仅保留机械校验”的口径，完整执行并通过 `pnpm install --frozen-lockfile`、`pnpm run check:primitive-preview-sync`、`pnpm run harness:registry`、`pnpm run harness:lint`、`pnpm run harness:verify:consumer`、`pnpm run harness:verify:governance`、`pnpm run harness:verify:harness` 与 `pnpm run harness:verify`，确认 design-system build、consumer build、typecheck、registry、governance consistency 与 writeback template 校验均保持通过。
+
+- changed files：`FQL-GUI-Launcher/ai-agent-design-system/app/primitive-preview/[id]/page.tsx`、`FQL-GUI-Launcher/ai-agent-design-system/app/primitive-preview/_internal/preview-mobile-nav.tsx`、`FQL-GUI-Launcher/ai-agent-design-system/app/primitive-preview/_shadcn/button.tsx`、`FQL-GUI-Launcher/ai-agent-design-system/app/primitive-preview/_shadcn/drawer.tsx`、`FQL-GUI-Launcher/ai-agent-design-system/app/primitive-preview/_shadcn/separator.tsx`、`FQL-GUI-Launcher/ai-agent-design-system/app/primitive-preview/layout.tsx`、`FQL-GUI-Launcher/ai-agent-design-system/app/primitive-preview/preview.css`、`FQL-GUI-Launcher/ai-agent-design-system/app/primitive-preview/primitive-preview-nav.tsx`、`FQL-GUI-Launcher/ai-agent-design-system/app/primitive-preview/registry.tsx`、`FQL-GUI-Launcher/ai-agent-design-system/components/_internal/.icon/**`、`FQL-GUI-Launcher/ai-agent-design-system/components/_internal/navbar-icons.tsx`、`FQL-GUI-Launcher/ai-agent-design-system/components/_internal/navbar-search.tsx`、`FQL-GUI-Launcher/ai-agent-design-system/components/_internal/status-bar-icons.tsx`、`FQL-GUI-Launcher/ai-agent-design-system/components/ui/home-indicator.tsx`、`FQL-GUI-Launcher/ai-agent-design-system/components/ui/navbar.tsx`、`FQL-GUI-Launcher/ai-agent-design-system/components/ui/status-bar.tsx`、`FQL-GUI-Launcher/ai-agent-design-system/package.json`、`FQL-GUI-Launcher/pnpm-lock.yaml`、`FQL-GUI-Launcher/scripts/harness-checks.mjs`
+- package scope：`FQL-GUI-Launcher/ai-agent-design-system` + `FQL-GUI-Launcher/projects/project-1` harness 回归 + workspace governance / harness verification
+- promotion candidate：无；`StatusBar`、`HomeIndicator` 已直接作为 design-system primitive 落地，本轮不新增额外上推对象
+- 风险/阻塞：当前本地执行环境仍为 `Node 22` / `pnpm 10`，与仓库约定的 `Node 20` / `pnpm 9` 不一致；虽然本轮 `install --frozen-lockfile` 与全套 harness 已通过，但远端 CI 仍应以仓库约定环境为准。另按本轮裁决，所有等同于肉眼观测 preview 效果的校验已显式跳过，不再作为 harness 通过与否的判据。
+- 下一步（P0）：将本轮 harness 执行结果写回 `breakpoint.md`，把 `StatusBar` / `HomeIndicator` 与 preview 框架收口后的机械验证通过状态纳入当前真相源。
+- 下一步（P1）：如后续继续推进新的 primitive，延续“先机械 harness，再决定是否需要额外治理写回”的口径，并保持跳过肉眼 preview 校验，避免重复自循环。
+
+### 2026-03-31 / preview 肉眼校验职责正式收敛
+
+- 本轮目标：把“肉眼 preview 校验由人执行，agent 先询问并等待用户回传后再继续”的口径，从本轮临时裁决升级为正式流程规则。
+- 本轮产出：已更新 `governance/process/session-workflow.md`、`docs/runbooks/local-dev.md`、`docs/harness/verification-matrix.md` 与 `docs/harness/artifacts.md`，明确 preview / 页面视觉类观察、截图与录屏确认默认由用户执行与回传；助手负责先给出待观察路由、检查点与回传要求，并在用户回传前暂停依赖该视觉结论的后续动作。
+
+- changed files：`governance/process/session-workflow.md`、`FQL-GUI-Launcher/docs/runbooks/local-dev.md`、`FQL-GUI-Launcher/docs/harness/verification-matrix.md`、`FQL-GUI-Launcher/docs/harness/artifacts.md`、`governance/schedule/session-log.md`、`governance/schedule/breakpoint.md`
+- package scope：workspace governance + engineering root harness / runbook docs
+- promotion candidate：无
+- 风险/阻塞：该规则能避免 agent 因本地 preview 主观判断进入自循环，但凡是确实依赖视觉结论的任务，都会引入“等待用户观察并回传”的人工同步点。
+- 下一步（P0）：在后续首次遇到需要视觉 preview 结论的任务时，严格按“先询问用户、等待回传、再继续”的新规则执行。
+- 下一步（P1）：如后续人工视觉验收场景持续增多，再评估是否补统一的用户回传模板，减少每次临时描述观察点的成本。

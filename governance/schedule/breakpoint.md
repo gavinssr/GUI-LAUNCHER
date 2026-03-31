@@ -39,22 +39,25 @@
 - 本轮已完整通过 `pnpm run harness:lint` 与 `pnpm run harness:verify`，确认 `Navbar` 新增、preview 双语命名与治理校验链保持闭环。
 - 根据最新样式回归，`Navbar` 已取消自适应宽度并收敛为 Figma 对齐的 `375 x 44` 固定头部；`title-actions`、`title-text-action`、`tabs` 与 `search-action` 的右侧操作区已改回严格右对齐。
 - 搜索框右侧 CTA 前多余的竖线已移除，输入态光标已改为直角竖条；相关修复已通过本地页面确认，并再次完整通过 `pnpm run harness:lint` 与 `pnpm run harness:verify`。
-- 已确认当前 Figma MCP 只能返回 icon asset URL，无法在现有环境中直接下载为可落盘的本地 SVG；因此 `Navbar` 的返回箭头、搜索 icon、右侧 icon 按钮与删除按钮仍待用户补充原始 SVG 资产后再做最终替换。
+- `Navbar` 所需 icon 资产已完成替换，不再存在“等待原始 SVG 补齐后再收口”的阻塞项。
+- `StatusBar` 与 `HomeIndicator` 已作为 iPhone 通用 primitive 落地到 `components/ui/*`，并通过 `primitivePreviewRegistry` 以 `iphone-common` 分组统一接入 preview。
+- `primitive-preview` 本轮已完成框架与样式收口：移动端导航壳层、共享 preview 样式与 iPhone 通用组件展示区已落地；`check:primitive-preview-sync` 已从单纯 `id` 比对升级为基于 `primitiveIds` 的覆盖校验。
+- 针对 `fdc7281` 之后的 3 个提交，已按“跳过肉眼 preview 校验、仅保留机械 harness 校验”的口径补完执行 `pnpm install --frozen-lockfile`、`check:primitive-preview-sync`、`harness:registry`、`harness:lint`、`harness:verify:consumer`、`harness:verify:governance`、`harness:verify:harness` 与 `harness:verify`，确认 design-system、consumer、governance 与 harness 链路继续闭环。
+- 视觉 preview 校验的长期口径已正式收敛：凡需肉眼观察、截图或录屏确认的 preview / 页面验收，统一由用户执行并回传；助手必须先询问并等待用户反馈，再继续依赖该结果的下一步。
 
 ## 下一步
 
 ### P0
 
 - 继续下一个 primitive 的正式建设，保持“先 design-system primitive、后业务消费”的推进顺序
-- 等待用户提供 `Navbar` 的原始 SVG 资产，收到后替换当前近似 icon，并再次执行 preview 验证与 harness 收口
-- 观察远端 GitHub Actions / PR 对本轮 navbar primitive 真实落地的首次运行结果
+- 观察远端 GitHub Actions / PR 对本轮 iPhone 通用 primitive 与 preview 框架收口后的首次运行结果
 
 ### P1
 
 - 根据真实使用摩擦决定是否细分更多 writeback 模板变体
 - 若后续 primitive 数量持续增长，评估是否需要在 `primitivePreviewRegistry` 上增加分组元信息，同时保持 `check:primitive-preview-sync` 兼容
 - 视需要继续为其余历史 preview 项补齐中英双语命名，保持导航与展示口径一致
-- 在原始 icon 资产补齐后，再判断 `Navbar` 的 tabs / search / action icon 是否仍应停留在 `_internal`，还是具备正式上推条件
+- 结合真实页面复用证据，再判断 `Navbar` 的 tabs / search / action icon 是否仍应停留在 `_internal`，还是具备正式上推条件
 - 当 loading 能力脱离 `Button` 内部实现时，再评估是否把当前内部资产升级为正式独立 primitive
 
 ## 风险 / 依赖
@@ -64,5 +67,6 @@
 - 模板与校验只负责减少漏字段，不会替代任务收口时的人为裁决。
 - 当前侧边导航直接展示每个 primitive 的描述文案；若 primitive 数量显著上升，导航面板长度和扫描成本可能需要进一步治理。
 - `Navbar` 当前以单一 variant API 承接 7 类页面头部形态；若后续真实页面的 tabs / search / action icon 语义继续分化，可能需要基于复用证据再拆分正式 primitive，而不是长期停留在 `_internal`。
-- `Navbar` 的关键布局细节已修复，但设计稿原始 SVG 资产仍未落盘；若用户未补充 SVG 或新的下载路径，本轮只能暂时保留近似 icon 实现。
+- 当前本地执行环境为 `Node 22` / `pnpm 10`，虽已完整通过本轮 `install --frozen-lockfile` 与全套 harness，但仓库正式契约仍是 `Node 20` / `pnpm 9`，需继续以 CI 结果作为最终环境基线。
+- 视觉 preview 校验已从“本轮临时跳过”升级为“用户执行、助手等待回传”的固定流程；若后续任务需要人工视觉结论，仍会引入额外等待成本，但可避免 agent 在本地预览判断上自循环。
 - “危险语义”能力当前按你的裁决暂不进入上推范围；需等真实业务页跑通后，再决定是否进入正式 design-system API 收敛。

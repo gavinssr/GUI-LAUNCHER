@@ -5,6 +5,7 @@
 - preview 是否补齐
 - build 是否通过
 - token 是否符合约定
+- 若任务需要视觉 preview 结论，由用户完成人工观察并回传；这类结论不作为默认 harness 自动判据
 
 ## Semantic / Registry
 
@@ -19,6 +20,7 @@
 - 目标页面是否可访问
 - build 是否通过
 - 是否存在 promotion candidate
+- 若可访问性或视觉验收需要肉眼判断，先询问用户并等待用户完成后再继续依赖该结果的下一步
 
 ## Governance Docs
 

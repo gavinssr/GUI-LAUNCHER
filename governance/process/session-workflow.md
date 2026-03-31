@@ -32,6 +32,7 @@
 
 - 除“用户在独立窗口执行提示词压测”外，其余事项默认由助手执行推进。
 - 压测任务中：用户负责执行与回传；助手负责模板、判定、归档与下一步拆解。
+- 对于依赖肉眼观察的 preview / 视觉比对 / 截图录屏确认类校验，默认由用户执行与回传；助手必须先询问、明确需要用户完成的观察项，并等待用户回传后再继续依赖该结果的下一步。
 - 同一会话同时包含压测与治理动作时，按“先压测回传 -> 后治理落地”执行。
 - 任何代码或文档写入落盘前，都必须先获得用户确认；用户点击 `run` 或明确文字同意，视为授权。
 
@@ -40,6 +41,7 @@
 - 先判断任务归属：design system / consumer / registry / governance。
 - 对 design system / consumer / registry 任务，默认推进顺序是：`breakpoint` -> engineering root docs -> target package -> implementation / verification。
 - 非 governance task 先回答“真实工程目标、证据、约束与验证”，再决定需要哪些治理写回。
+- 若任务需要视觉 preview 校验，先完成机械 harness / build / typecheck / registry 等可自动验证项，再向用户发起人工观察请求；在用户回传前，不把视觉判断写成“已完成验证”。
 - 发现管理信息冲突时，以 `governance/schedule/breakpoint.md` 为当前真相源。
 - 出现新的战略候选或阶段变化候选时，先记录到当前任务上下文，收口时再决定是否写回正式文档。
 
