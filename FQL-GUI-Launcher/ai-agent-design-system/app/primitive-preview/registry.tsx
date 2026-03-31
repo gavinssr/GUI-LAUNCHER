@@ -287,7 +287,7 @@ export const primitivePreviewRegistry: PrimitivePreviewItem[] = [
   {
     id: "iphone-common",
     primitiveIds: ["status-bar", "home-indicator"],
-    title: "iPhone通用组件",
+    title: "iPhone Common / iPhone 通用组件",
     description:
       "集中展示 iPhone 系统级基础组件，包括 Status Bar 与 Home Indicator。 / Shared preview for iPhone system primitives, including Status Bar and Home Indicator.",
     render: () => (
@@ -337,7 +337,7 @@ export const primitivePreviewRegistry: PrimitivePreviewItem[] = [
   {
     id: "badge",
     primitiveIds: ["badge"],
-    title: "Badge",
+    title: "Badge / 徽标",
     description: "展示所有 badge 语义变体。",
     render: () => (
       <div className="flex flex-wrap items-center gap-3">
@@ -353,7 +353,7 @@ export const primitivePreviewRegistry: PrimitivePreviewItem[] = [
   {
     id: "input",
     primitiveIds: ["input"],
-    title: "Input",
+    title: "Input / 输入框",
     description: "展示默认、禁用和错误态。",
     render: () => (
       <div className="grid gap-3 md:grid-cols-2">
@@ -366,7 +366,7 @@ export const primitivePreviewRegistry: PrimitivePreviewItem[] = [
   {
     id: "label",
     primitiveIds: ["label"],
-    title: "Label",
+    title: "Label / 标签",
     description: "展示与 input 的基础组合。",
     render: () => (
       <div className="grid gap-2 md:max-w-sm">
@@ -378,7 +378,7 @@ export const primitivePreviewRegistry: PrimitivePreviewItem[] = [
   {
     id: "separator",
     primitiveIds: ["separator"],
-    title: "Separator",
+    title: "Separator / 分隔线",
     description: "展示 horizontal 与 vertical 两种方向。",
     render: () => (
       <div className="space-y-4">
@@ -397,7 +397,7 @@ export const primitivePreviewRegistry: PrimitivePreviewItem[] = [
   {
     id: "card",
     primitiveIds: ["card"],
-    title: "Card",
+    title: "Card / 卡片",
     description: "展示 default/sm 尺寸和 header/action/footer 结构。",
     render: () => (
       <div className="grid gap-4 md:grid-cols-2">
@@ -431,7 +431,7 @@ export const primitivePreviewRegistry: PrimitivePreviewItem[] = [
   {
     id: "field",
     primitiveIds: ["field"],
-    title: "Field",
+    title: "Field / 表单字段",
     description: "展示 vertical 与 horizontal 布局和错误信息。",
     render: () => (
       <FieldSet className="gap-4">
@@ -455,7 +455,7 @@ export const primitivePreviewRegistry: PrimitivePreviewItem[] = [
   {
     id: "dialog",
     primitiveIds: ["dialog"],
-    title: "Dialog",
+    title: "Dialog / 对话框",
     description: "通过 trigger 打开对话框，验证基础交互和布局。",
     render: () => (
       <Dialog>

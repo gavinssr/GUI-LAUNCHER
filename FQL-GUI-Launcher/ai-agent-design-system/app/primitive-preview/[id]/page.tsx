@@ -1,13 +1,4 @@
 import { notFound } from "next/navigation"
-
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-
 import { getPrimitivePreviewById, primitivePreviewIds } from "../registry"
 
 type PrimitivePreviewDetailPageProps = {
@@ -31,12 +22,12 @@ export default async function PrimitivePreviewDetailPage({
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{item.title}</CardTitle>
-        <CardDescription>{item.description}</CardDescription>
-      </CardHeader>
-      <CardContent>{item.render()}</CardContent>
-    </Card>
+    <section className="primitive-preview-detail-frame">
+      <header className="primitive-preview-detail-header">
+        <h2 className="primitive-preview-detail-title">{item.title}</h2>
+        <p className="primitive-preview-detail-description">{item.description}</p>
+      </header>
+      <div className="primitive-preview-detail-body">{item.render()}</div>
+    </section>
   )
 }

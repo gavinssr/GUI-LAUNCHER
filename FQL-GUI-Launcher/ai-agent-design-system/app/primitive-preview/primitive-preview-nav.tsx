@@ -1,41 +1,45 @@
 "use client"
 
+import { Fragment } from "react"
 import Link from "next/link"
 import { useSelectedLayoutSegment } from "next/navigation"
 
-import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
+import { Separator } from "./_shadcn/separator"
 import { primitivePreviewRegistry } from "./registry"
 
-export function PrimitivePreviewNav() {
+type PrimitivePreviewNavProps = {
+  onSelect?: () => void
+}
+
+export function PrimitivePreviewNav({ onSelect }: PrimitivePreviewNavProps) {
   const selectedId = useSelectedLayoutSegment()
 
   return (
-    <nav aria-label="Primitive components" className="flex flex-col gap-2">
-      {primitivePreviewRegistry.map((item) => {
+    <nav
+      aria-label="Primitive components"
+      className="primitive-preview-nav primitive-preview-nav-shell"
+    >
+      {primitivePreviewRegistry.map((item, index) => {
         const isActive = item.id === selectedId
 
         return (
-          <Link
-            key={item.id}
-            href={`/primitive-preview/${item.id}`}
-            className={cn(
-              buttonVariants({
-                variant: "secondary-outline",
-                size: "M",
-                status: isActive ? "default" : "inactive",
-              }),
-              "h-auto justify-start px-3 py-2 text-left whitespace-normal"
-            )}
-          >
-            <span className="flex flex-col items-start gap-1">
-              <span className="font-medium">{item.title}</span>
-              <span className="text-xs text-muted-foreground">
-                {item.description}
+          <Fragment key={item.id}>
+            <Link
+              href={`/primitive-preview/${item.id}`}
+              onClick={onSelect}
+              className={cn(
+                "primitive-preview-nav-link",
+                isActive && "is-active"
+              )}
+            >
+              <span className="primitive-preview-nav-link-label">
+                {item.title}
               </span>
-            </span>
-          </Link>
+            </Link>
+            {index < primitivePreviewRegistry.length - 1 ? <Separator /> : null}
+          </Fragment>
         )
       })}
     </nav>
