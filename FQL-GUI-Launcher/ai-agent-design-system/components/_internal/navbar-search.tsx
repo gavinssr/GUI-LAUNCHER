@@ -15,12 +15,26 @@ function NavbarSearchCapsule({
   className?: string
 }) {
   const hasValue = Boolean(value)
+  function renderClearButton(buttonClassName?: string) {
+    return (
+      <button
+        type="button"
+        aria-label="清空搜索"
+        className={cn(
+          "inline-flex size-4 shrink-0 items-center justify-center rounded-full text-[var(--sys-text-black-h3)] outline-none transition-colors focus-visible:ring-2 focus-visible:ring-ring/50",
+          buttonClassName
+        )}
+      >
+        <ClearIcon />
+      </button>
+    )
+  }
 
   return (
     <div
       data-slot="navbar-search"
       className={cn(
-        "flex h-[34px] min-w-0 flex-1 items-center rounded-lg bg-background px-1.5 py-1.5 text-foreground ring-1 ring-foreground/8",
+        "flex h-[34px] min-w-0 flex-1 items-center rounded-lg bg-background pl-1.5 pr-[10px] py-1.5 text-foreground ring-1 ring-foreground/8",
         className
       )}
     >
@@ -30,9 +44,7 @@ function NavbarSearchCapsule({
           <span
             className={cn(
               "truncate",
-              hasValue
-                ? "text-[var(--sys-text-black-h1)]"
-                : "text-muted-foreground"
+              hasValue ? "text-foreground" : "text-muted-foreground"
             )}
           >
             {hasValue ? value : placeholder}
@@ -46,18 +58,12 @@ function NavbarSearchCapsule({
         </div>
       </div>
 
-      {showClearButton ? (
-        <button
-          type="button"
-          aria-label="清空搜索"
-          className="ml-2 inline-flex size-4 shrink-0 items-center justify-center rounded-full text-[var(--sys-text-black-h3)] outline-none transition-colors focus-visible:ring-2 focus-visible:ring-ring/50"
-        >
-          <ClearIcon />
-        </button>
-      ) : null}
+      {showClearButton && !ctaLabel ? renderClearButton("ml-2") : null}
 
       {ctaLabel ? (
-        <div className="ml-2 inline-flex shrink-0 items-center">
+        <div className="ml-2 inline-flex shrink-0 items-center justify-end gap-2">
+          {showClearButton ? renderClearButton() : null}
+          <div aria-hidden className="h-4 w-px bg-border" />
           <span className="text-xs leading-[14px] font-medium tracking-[-0.24px] text-[var(--marketing)]">
             {ctaLabel}
           </span>

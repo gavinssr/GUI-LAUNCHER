@@ -73,14 +73,28 @@ function Navbar({
   showSearchClearButton = false,
   ...props
 }: NavbarProps) {
-  const resolvedLeading = leading ?? <NavbarBackButton />
+  const resolvedLeading =
+    leading ??
+    (variant === "tabs" ? (
+      <NavbarBackButton className="rounded-none focus-visible:ring-0" />
+    ) : (
+      <NavbarBackButton />
+    ))
+
+  const tabsLeading = React.isValidElement<{ className?: string }>(resolvedLeading)
+    ? React.cloneElement(resolvedLeading, {
+        className: cn("mr-[-4px]", resolvedLeading.props.className),
+      })
+    : (
+      <div className="mr-[-4px]">{resolvedLeading}</div>
+    )
 
   return (
     <div
       data-slot="navbar"
       data-variant={variant}
       className={cn(
-        "flex h-11 w-[375px] shrink-0 items-center bg-background text-foreground",
+        "flex h-11 w-[375px] shrink-0 items-center text-foreground",
         navbarPaddingByVariant[variant],
         navbarLayoutByVariant[variant],
         className
@@ -115,7 +129,7 @@ function Navbar({
       {variant === "tabs" ? (
         <>
           <div className="flex min-w-0 items-center pr-1">
-            <div className="mr-[-4px]">{resolvedLeading}</div>
+            {tabsLeading}
             <NavbarTabs items={tabs} className="mr-[-4px]" />
           </div>
           <NavbarInlineActions items={actions} />
@@ -160,7 +174,7 @@ function NavbarTitleGroup({
   return (
     <div className="flex min-w-0 items-center gap-1">
       {leading}
-      <div className="truncate text-lg leading-5 font-medium text-[var(--sys-text-black-h1)]">
+      <div className="truncate text-lg leading-5 font-medium text-foreground">
         {title}
       </div>
     </div>

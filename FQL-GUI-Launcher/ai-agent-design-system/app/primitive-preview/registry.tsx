@@ -70,7 +70,7 @@ const navbarHeaderActions = [
 ]
 
 const navbarTabsActions = [
-  { key: "search", icon: "search" as const, label: "搜索" },
+  { key: "searcher", icon: "searcher" as const, label: "搜索" },
   { key: "cart", icon: "cart" as const, label: "购物车" },
   { key: "more", icon: "more" as const, label: "更多" },
 ]
@@ -86,6 +86,10 @@ const navbarTabs = [
   { key: "option-2", label: "选项" },
   { key: "option-3", label: "选项" },
 ]
+
+function NavbarPreviewSurface({ children }: { children: ReactNode }) {
+  return <div className="w-fit overflow-hidden bg-background">{children}</div>
+}
 
 export const primitivePreviewRegistry: PrimitivePreviewItem[] = [
   {
@@ -203,9 +207,13 @@ export const primitivePreviewRegistry: PrimitivePreviewItem[] = [
           <div className="text-sm font-medium text-foreground">
             Basic Header / 基础头部
           </div>
-          <div className="space-y-3 rounded-xl border border-border bg-muted/20 p-4">
-            <Navbar variant="actions" actions={navbarHeaderActions} />
-            <Navbar variant="title" title="标题文本" />
+          <div className="space-y-3 rounded-xl border border-border bg-[var(--sys-page-background-fill)] p-4">
+            <NavbarPreviewSurface>
+              <Navbar variant="actions" actions={navbarHeaderActions} />
+            </NavbarPreviewSurface>
+            <NavbarPreviewSurface>
+              <Navbar variant="title" title="标题文本" />
+            </NavbarPreviewSurface>
           </div>
         </section>
 
@@ -213,17 +221,21 @@ export const primitivePreviewRegistry: PrimitivePreviewItem[] = [
           <div className="text-sm font-medium text-foreground">
             Title Variants / 标题类变体
           </div>
-          <div className="space-y-3 rounded-xl border border-border bg-muted/20 p-4">
-            <Navbar
-              variant="title-actions"
-              title="标题文本"
-              actions={navbarStackedActions}
-            />
-            <Navbar
-              variant="title-text-action"
-              title="标题文本"
-              actionText="操作文本"
-            />
+          <div className="space-y-3 rounded-xl border border-border bg-[var(--sys-page-background-fill)] p-4">
+            <NavbarPreviewSurface>
+              <Navbar
+                variant="title-actions"
+                title="标题文本"
+                actions={navbarStackedActions}
+              />
+            </NavbarPreviewSurface>
+            <NavbarPreviewSurface>
+              <Navbar
+                variant="title-text-action"
+                title="标题文本"
+                actionText="操作文本"
+              />
+            </NavbarPreviewSurface>
           </div>
         </section>
 
@@ -231,8 +243,14 @@ export const primitivePreviewRegistry: PrimitivePreviewItem[] = [
           <div className="text-sm font-medium text-foreground">
             Tabs Variant / Tabs 变体
           </div>
-          <div className="rounded-xl border border-border bg-muted/20 p-4">
-            <Navbar variant="tabs" tabs={navbarTabs} actions={navbarTabsActions} />
+          <div className="rounded-xl border border-border bg-[var(--sys-page-background-fill)] p-4">
+            <NavbarPreviewSurface>
+              <Navbar
+                variant="tabs"
+                tabs={navbarTabs}
+                actions={navbarTabsActions}
+              />
+            </NavbarPreviewSurface>
           </div>
         </section>
 
@@ -240,18 +258,22 @@ export const primitivePreviewRegistry: PrimitivePreviewItem[] = [
           <div className="text-sm font-medium text-foreground">
             Search Variants / 搜索类变体
           </div>
-          <div className="space-y-3 rounded-xl border border-border bg-muted/20 p-4">
-            <Navbar
-              variant="search"
-              searchPlaceholder="输入文本"
-              searchActionLabel="搜索"
-            />
-            <Navbar
-              variant="search-action"
-              searchValue="输入文本"
-              showSearchClearButton
-              actions={[{ key: "cart", icon: "cart", label: "购物车" }]}
-            />
+          <div className="space-y-3 rounded-xl border border-border bg-[var(--sys-page-background-fill)] p-4">
+            <NavbarPreviewSurface>
+              <Navbar
+                variant="search"
+                searchPlaceholder="输入文本"
+                searchActionLabel="搜索"
+              />
+            </NavbarPreviewSurface>
+            <NavbarPreviewSurface>
+              <Navbar
+                variant="search-action"
+                searchValue="输入文本"
+                showSearchClearButton
+                actions={[{ key: "cart", icon: "cart", label: "购物车" }]}
+              />
+            </NavbarPreviewSurface>
           </div>
         </section>
       </div>
