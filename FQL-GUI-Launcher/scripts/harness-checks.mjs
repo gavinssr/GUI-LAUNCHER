@@ -45,6 +45,10 @@ function relativeToEngineering(filePath) {
   return path.relative(engineeringRoot, filePath)
 }
 
+function isCodeFile(filePath) {
+  return /\.(tsx|ts|jsx|js|mjs|cjs)$/.test(filePath)
+}
+
 function runPrimitivePreviewSync() {
   const primitiveDir = path.join(engineeringRoot, "ai-agent-design-system/components/ui")
   const registryPath = path.join(engineeringRoot, "ai-agent-design-system/app/primitive-preview/registry.tsx")
@@ -76,6 +80,51 @@ function runPrimitivePreviewSync() {
   }
 
   pass("primitive preview coverage matches components/ui")
+}
+
+function runPrimitivePreviewBoundary() {
+  const previewDir = path.join(engineeringRoot, "ai-agent-design-system/app/primitive-preview")
+  const scanRoots = [
+    path.join(engineeringRoot, "projects"),
+    path.join(engineeringRoot, "ai-agent-design-system"),
+  ]
+  const forbiddenPatterns = [
+    {
+      label: "primitive-preview/_internal",
+      regex: /["'`][^"'`]*primitive-preview\/_internal\/[^"'`]*["'`]/,
+    },
+    {
+      label: "primitive-preview/_shadcn",
+      regex: /["'`][^"'`]*primitive-preview\/_shadcn\/[^"'`]*["'`]/,
+    },
+    {
+      label: "primitive-preview/preview.css",
+      regex: /["'`][^"'`]*primitive-preview\/preview\.css["'`]/,
+    },
+  ]
+  const targetFiles = scanRoots.flatMap((rootPath) =>
+    listFiles(rootPath, (filePath) => {
+      if (!isCodeFile(filePath)) return false
+      return !filePath.startsWith(`${previewDir}${path.sep}`)
+    }),
+  )
+  const issues = []
+
+  for (const filePath of targetFiles) {
+    const text = read(filePath)
+
+    for (const pattern of forbiddenPatterns) {
+      if (pattern.regex.test(text)) {
+        issues.push(`${relativeToEngineering(filePath)} imports preview-private asset '${pattern.label}'`)
+      }
+    }
+  }
+
+  if (issues.length) {
+    fail(issues.join(" | "))
+  }
+
+  pass("preview-private stage assets stay inside app/primitive-preview")
 }
 
 function runRegistryConsistency() {
@@ -282,6 +331,7 @@ function runPortContract() {
 const command = process.argv[2]
 const commands = {
   "primitive-preview-sync": runPrimitivePreviewSync,
+  "primitive-preview-boundary": runPrimitivePreviewBoundary,
   "registry-consistency": runRegistryConsistency,
   "consumer-boundary": runConsumerBoundary,
   "token-usage": runTokenUsage,

@@ -159,3 +159,14 @@
 - 风险/阻塞：该规则能避免 agent 因本地 preview 主观判断进入自循环，但凡是确实依赖视觉结论的任务，都会引入“等待用户观察并回传”的人工同步点。
 - 下一步（P0）：在后续首次遇到需要视觉 preview 结论的任务时，严格按“先询问用户、等待回传、再继续”的新规则执行。
 - 下一步（P1）：如后续人工视觉验收场景持续增多，再评估是否补统一的用户回传模板，减少每次临时描述观察点的成本。
+
+### 2026-04-01 / primitive-preview 舞台层边界治理补全
+
+- 本轮目标：把 `primitive-preview` 舞台层与右侧详情展示区之间的边界从实现约定升级为正式治理与工程规则，避免后续新增 primitive 时出现舞台样式污染详情内容，或舞台私有资产反向渗透到 consumer 层。
+- 本轮产出：已将以下 4 条规则正式写回治理层与 engineering 层：1）`preview` 页是 primitive 展示的舞台层；2）舞台层导航、网站标题栏与详情展示容器外壳统一使用 `app/primitive-preview/_internal/*` 与 `app/primitive-preview/_shadcn/*` 私有实现；3）右侧详情区组件内容不得受舞台层样式污染，`detail-body` 视为接近真实消费环境的展示落点；4）舞台层私有组件、样式与类名只服务于舞台，不得被 `projects/*` 或其他 consumer / 业务页面复用调用。同时已补充 `primitive-preview` 边界 runbook 与 docs 入口，形成治理真相源、包级规则与可链接工程文档三层闭环。
+- changed files：`governance/schedule/session-log.md`、`governance/schedule/breakpoint.md`、`FQL-GUI-Launcher/ai-agent-design-system/.cursor/rules/ui-system.mdc`、`FQL-GUI-Launcher/ai-agent-design-system/AGENTS.md`、`FQL-GUI-Launcher/ai-agent-design-system/app/primitive-preview/preview.css`、`FQL-GUI-Launcher/docs/runbooks/primitive-preview.md`、`FQL-GUI-Launcher/docs/index.md`
+- package scope：workspace governance + `FQL-GUI-Launcher/ai-agent-design-system` + engineering root docs
+- promotion candidate：无；本轮为 preview 舞台层边界治理与文档固化，不新增 design-system 上推对象
+- 风险/阻塞：本轮补齐的是文档与规则边界，不会自动阻止未来有人在 `primitive-preview` 外层追加宽泛样式或误引用舞台私有组件；后续新增 preview 舞台能力时，仍需按本轮规则人工审查 selector 范围与包边界。
+- 下一步（P0）：后续每新增一个 primitive preview 展示时，默认只改 `registry.tsx` 与详情内容本身，不在 layout / stage shell 上为单个 primitive 添加特例样式。
+- 下一步（P1）：若后续舞台层私有资产继续增长，可再评估是否增加针对 `app/primitive-preview/_internal/*` 与 `_shadcn/*` 的边界校验脚本，进一步减少误用空间。

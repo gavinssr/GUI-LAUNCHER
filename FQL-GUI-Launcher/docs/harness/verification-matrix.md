@@ -3,6 +3,7 @@
 ## Design System Primitive
 
 - preview 是否补齐
+- `check:primitive-preview-boundary` 是否通过，确保舞台私有资产未越界引用
 - build 是否通过
 - token 是否符合约定
 - 若任务需要视觉 preview 结论，由用户完成人工观察并回传；这类结论不作为默认 harness 自动判据

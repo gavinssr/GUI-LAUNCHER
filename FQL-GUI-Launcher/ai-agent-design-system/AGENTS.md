@@ -35,10 +35,14 @@ This repository is used to build an internal FQL design system on top of shadcn/
 - Do not create another theme file.
 - Keep accessibility behavior from shadcn and Radix intact.
 - Any new file under `components/ui/*` must add a matching preview block to `app/primitive-preview/registry.tsx`.
+- `app/primitive-preview/*` is the primitive stage shell, not a reusable consumer surface.
+- `app/primitive-preview/_internal/*` and `app/primitive-preview/_shadcn/*` are private stage assets and must not be imported by `projects/*` or other business/consumer pages.
+- Keep `preview.css` scoped to stage chrome; do not let preview shell styles bleed into `.primitive-preview-detail-body`.
 
 ## Docs Map
 
 - local development: `../docs/runbooks/local-dev.md`
+- primitive preview boundary: `../docs/runbooks/primitive-preview.md`
 - registry workflow: `../docs/runbooks/registry.md`
 - verification expectations: `../docs/harness/verification-matrix.md`
 - promotion policy: `../docs/harness/promotion-policy.md`

@@ -37,6 +37,7 @@
 ### Runbooks
 
 - `runbooks/local-dev.md`
+- `runbooks/primitive-preview.md`
 - `runbooks/registry.md`
 - `runbooks/consumer-acceptance.md`
 - `runbooks/doc-gardening.md`

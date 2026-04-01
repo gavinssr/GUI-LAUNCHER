@@ -44,12 +44,16 @@
 - `primitive-preview` 本轮已完成框架与样式收口：移动端导航壳层、共享 preview 样式与 iPhone 通用组件展示区已落地；`check:primitive-preview-sync` 已从单纯 `id` 比对升级为基于 `primitiveIds` 的覆盖校验。
 - 针对 `fdc7281` 之后的 3 个提交，已按“跳过肉眼 preview 校验、仅保留机械 harness 校验”的口径补完执行 `pnpm install --frozen-lockfile`、`check:primitive-preview-sync`、`harness:registry`、`harness:lint`、`harness:verify:consumer`、`harness:verify:governance`、`harness:verify:harness` 与 `harness:verify`，确认 design-system、consumer、governance 与 harness 链路继续闭环。
 - 视觉 preview 校验的长期口径已正式收敛：凡需肉眼观察、截图或录屏确认的 preview / 页面验收，统一由用户执行并回传；助手必须先询问并等待用户反馈，再继续依赖该结果的下一步。
+- `ai-agent-design-system/app/primitive-preview` 已正式确认为 primitive 展示的舞台层：外层导航、网站标题栏与详情展示容器外壳统一使用 `app/primitive-preview/_internal/*` 与 `_shadcn/*` 私有实现收口。
+- `primitive-preview/[id]` 右侧详情区中的真实组件展示内容不得受舞台层样式污染；`primitive-preview-detail-body` 视为接近真实 consumer 上下文的展示落点，后续迭代不得从舞台壳层写宽泛样式覆盖其内部内容。
+- 舞台层私有组件、私有样式与私有类名只服务于 preview 舞台本身，不得被 `projects/*` 或其他 consumer / 业务页面复用调用；“舞台的东西只能用来做舞台”已作为正式边界固化到包级规则与 docs。
 
 ## 下一步
 
 ### P0
 
 - 继续下一个 primitive 的正式建设，保持“先 design-system primitive、后业务消费”的推进顺序
+- 后续新增 primitive preview 时，默认只改 `registry.tsx` 与详情内容本身，不在舞台层 layout / nav shell 上为单个 primitive 添加特例样式
 - 观察远端 GitHub Actions / PR 对本轮 iPhone 通用 primitive 与 preview 框架收口后的首次运行结果
 
 ### P1
@@ -59,6 +63,7 @@
 - 视需要继续为其余历史 preview 项补齐中英双语命名，保持导航与展示口径一致
 - 结合真实页面复用证据，再判断 `Navbar` 的 tabs / search / action icon 是否仍应停留在 `_internal`，还是具备正式上推条件
 - 当 loading 能力脱离 `Button` 内部实现时，再评估是否把当前内部资产升级为正式独立 primitive
+- 若后续舞台私有资产继续增长，评估是否增加针对 `app/primitive-preview/_internal/*` 与 `_shadcn/*` 的边界校验，减少 consumer 误用风险
 
 ## 风险 / 依赖
 
@@ -70,3 +75,4 @@
 - 当前本地执行环境为 `Node 22` / `pnpm 10`，虽已完整通过本轮 `install --frozen-lockfile` 与全套 harness，但仓库正式契约仍是 `Node 20` / `pnpm 9`，需继续以 CI 结果作为最终环境基线。
 - 视觉 preview 校验已从“本轮临时跳过”升级为“用户执行、助手等待回传”的固定流程；若后续任务需要人工视觉结论，仍会引入额外等待成本，但可避免 agent 在本地预览判断上自循环。
 - “危险语义”能力当前按你的裁决暂不进入上推范围；需等真实业务页跑通后，再决定是否进入正式 design-system API 收敛。
+- 当前新增的是治理与文档级边界，而非自动化强约束；若后续有人在舞台层追加宽泛 selector，或在 consumer 中直接引用 `primitive-preview` 私有资产，仍可能出现规则漂移，需要结合 code review 持续防回流。

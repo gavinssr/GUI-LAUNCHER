@@ -38,6 +38,14 @@ alwaysApply: true
 - Primitive acceptance page: `app/primitive-preview/page.tsx` is the required preview route for `components/ui/*`.
 - Primitive preview registry: `app/primitive-preview/registry.tsx` is the source of truth for what appears on the preview page.
 
+## Primitive preview boundary
+- `app/primitive-preview/*` is a stage shell for primitive acceptance, not a reusable consumer surface.
+- Stage-only building blocks must stay under `app/primitive-preview/_internal/*` and `app/primitive-preview/_shadcn/*`.
+- Keep stage styles scoped to preview chrome such as shell, header, nav, drawer, sidebar, and detail frame wrappers.
+- Do not add broad descendant selectors from preview shell containers that can bleed into `.primitive-preview-detail-body`.
+- Treat `.primitive-preview-detail-body` as the rendered primitive boundary; new primitive demos should be added through `app/primitive-preview/registry.tsx`, not through per-primitive shell overrides.
+- Do not import preview stage-only components, styles, or private class contracts into `projects/*` or other consumer/business pages.
+
 ## Code style
 - Use TypeScript.
 - Use server components by default; add `"use client"` only when interaction requires it.
@@ -51,6 +59,7 @@ alwaysApply: true
 - Do not use inline style for production UI unless unavoidable.
 - Do not add a new UI library when shadcn or local components can solve it.
 - Do not merge a new primitive in `components/ui/*` without adding its preview block to `primitivePreviewRegistry`.
+- Do not reuse `app/primitive-preview/_internal/*`, `app/primitive-preview/_shadcn/*`, or preview-private class names as general-purpose UI for consumers.
 
 ## Extraction thresholds
 - Do not create a new FQL semantic component for a pattern used in only one page.

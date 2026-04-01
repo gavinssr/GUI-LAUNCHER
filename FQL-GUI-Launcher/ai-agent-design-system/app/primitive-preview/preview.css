@@ -1,3 +1,5 @@
+/* Stage shell only: these selectors define the preview chrome. */
+/* Keep stage-specific styling scoped here and do not leak it into detail-body content. */
 .primitive-preview-shell {
   min-height: 100vh;
   background:
@@ -47,6 +49,7 @@
   min-width: 0;
 }
 
+/* Private shadcn token overrides are allowed only for stage chrome. */
 .primitive-preview-nav-shell {
   --background: #ffffff;
   --foreground: #18181b;
@@ -130,6 +133,7 @@
   box-shadow: 0 -12px 36px rgba(24, 24, 27, 0.14);
 }
 
+/* Detail frame belongs to the stage shell, not to the rendered primitive itself. */
 .primitive-preview-detail-frame {
   overflow: hidden;
   border: 1px solid #e4e4e7;
@@ -161,6 +165,8 @@
   line-height: 1.6;
 }
 
+/* Render boundary: keep this area close to consumer context. */
+/* Do not add descendant selectors here that restyle primitive internals. */
 .primitive-preview-detail-body {
   padding: 1.5rem;
 }
