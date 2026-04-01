@@ -170,3 +170,15 @@
 - 风险/阻塞：本轮补齐的是文档与规则边界，不会自动阻止未来有人在 `primitive-preview` 外层追加宽泛样式或误引用舞台私有组件；后续新增 preview 舞台能力时，仍需按本轮规则人工审查 selector 范围与包边界。
 - 下一步（P0）：后续每新增一个 primitive preview 展示时，默认只改 `registry.tsx` 与详情内容本身，不在 layout / stage shell 上为单个 primitive 添加特例样式。
 - 下一步（P1）：若后续舞台层私有资产继续增长，可再评估是否增加针对 `app/primitive-preview/_internal/*` 与 `_shadcn/*` 的边界校验脚本，进一步减少误用空间。
+
+### 2026-04-01 / 删除历史 primitive 并收缩 Card 展示页
+
+- 本轮目标：删除已确认下线的历史 primitive 与对应 preview 舞台项，并把 `Card` 展示页详情内容区收缩为“开发中”占位，同时清理 design-system / consumer 对旧语义组件的级联依赖。
+- 本轮产出：已从 `ai-agent-design-system` 中删除 `Badge`、`Input`、`Label`、`Field` 及其 preview 项；`Card / 卡片` 详情区已清空为“开发中”；依赖旧 primitive 的 `StatusBadge`、`FqlField` 已同步删除；`project-1` 中相关页面已改为最小静态信息块与文本状态表达；`registry.json` 与 `public/r/*` 已去除过期 registry 项；完整通过 `pnpm run harness:lint` 与 `pnpm run harness:verify`。
+- changed files：`FQL-GUI-Launcher/ai-agent-design-system/app/primitive-preview/registry.tsx`、`FQL-GUI-Launcher/ai-agent-design-system/app/page.tsx`、`FQL-GUI-Launcher/ai-agent-design-system/registry.json`、`FQL-GUI-Launcher/ai-agent-design-system/public/r/registry.json`、`FQL-GUI-Launcher/projects/project-1/app/page.tsx`、`FQL-GUI-Launcher/projects/project-1/app/team-invite/page.tsx`、`FQL-GUI-Launcher/projects/project-1/app/billing-usage/page.tsx`、`FQL-GUI-Launcher/projects/project-1/app/api-keys/page.tsx`、`FQL-GUI-Launcher/projects/project-1/app/member-permissions/page.tsx`、`FQL-GUI-Launcher/projects/project-1/app/access-review-flow/page.tsx`、`governance/schedule/session-log.md`、`governance/schedule/breakpoint.md`
+- changed files（deleted）：`FQL-GUI-Launcher/ai-agent-design-system/components/ui/badge.tsx`、`FQL-GUI-Launcher/ai-agent-design-system/components/ui/input.tsx`、`FQL-GUI-Launcher/ai-agent-design-system/components/ui/label.tsx`、`FQL-GUI-Launcher/ai-agent-design-system/components/ui/field.tsx`、`FQL-GUI-Launcher/ai-agent-design-system/components/fql/status-badge.tsx`、`FQL-GUI-Launcher/ai-agent-design-system/components/fql/fql-field.tsx`、`FQL-GUI-Launcher/ai-agent-design-system/public/r/status-badge.json`、`FQL-GUI-Launcher/ai-agent-design-system/public/r/fql-field.json`
+- package scope：`FQL-GUI-Launcher/ai-agent-design-system` + `FQL-GUI-Launcher/projects/project-1` + workspace governance write-back
+- promotion candidate：无；本轮为历史 primitive / semantic 清理与 preview 收缩，不新增上推对象
+- 风险/阻塞：`project-1` 中原先依赖 `StatusBadge` 与 `FqlField` 的页面当前已回退到静态信息块与纯文本状态表达；若后续需要恢复可编辑表单与状态标签能力，需先定义新的上游 primitive / semantic 替代方案，再回到 consumer 组装。
+- 下一步（P0）：继续下一个真实 primitive 的正式建设，并基于新的设计证据决定是否补回输入类 / 状态类能力。
+- 下一步（P1）：视后续 consumer 使用摩擦，评估是否为 `project-1` 当前回退的静态区块补新的上游语义封装，而不是再次在 consumer 内部发明共享组件。

@@ -1,6 +1,4 @@
 import { FqlCard } from "ai-agent-design-system/components/fql/fql-card";
-import { FqlField } from "ai-agent-design-system/components/fql/fql-field";
-import { StatusBadge } from "ai-agent-design-system/components/fql/status-badge";
 import { Button } from "ai-agent-design-system/components/ui/button";
 
 const apiKeyOverview = [
@@ -28,7 +26,6 @@ const existingKeys = [
     owner: "支付平台组",
     lastUsedAt: "今天 09:42",
     scope: "账单读取 / 对账回调 / 发票同步",
-    status: "success" as const,
     statusLabel: "正常",
   },
   {
@@ -37,7 +34,6 @@ const existingKeys = [
     owner: "增长运营组",
     lastUsedAt: "昨天 18:15",
     scope: "客户同步 / 线索打标",
-    status: "warning" as const,
     statusLabel: "待轮换",
   },
   {
@@ -46,7 +42,6 @@ const existingKeys = [
     owner: "智能仓配组",
     lastUsedAt: "3 天前",
     scope: "库存查询 / 波次推送 / 异常告警",
-    status: "neutral" as const,
     statusLabel: "低频使用",
   },
   {
@@ -55,7 +50,6 @@ const existingKeys = [
     owner: "生态合作组",
     lastUsedAt: "已停用 12 天",
     scope: "沙箱联调 / 限流验证",
-    status: "danger" as const,
     statusLabel: "已停用",
   },
 ];
@@ -73,9 +67,7 @@ export default function ApiKeysPage() {
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-6 py-10 lg:px-8">
         <header className="grid gap-6 border-b border-border pb-8 lg:grid-cols-[minmax(0,1.3fr)_minmax(280px,0.7fr)] lg:items-end">
           <div className="space-y-4">
-            <StatusBadge status="marketing" className="w-fit">
-              API 凭证治理
-            </StatusBadge>
+            <p className="text-sm font-medium text-muted-foreground">API 凭证治理</p>
             <div className="space-y-3">
               <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
                 API Key 管理演练页
@@ -109,7 +101,7 @@ export default function ApiKeysPage() {
         <section className="grid gap-6 xl:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)]">
           <FqlCard
             title="创建新 API Key"
-            description="填写用途、访问范围与生命周期策略，供管理员复核后发放。"
+            description="旧字段型组件已下线，当前以静态摘要保留创建页结构与治理文案。"
             footer={
               <div className="flex w-full flex-col gap-3 border-t border-border pt-6 sm:flex-row sm:justify-end">
                 <Button variant="secondary-outline">取消</Button>
@@ -117,7 +109,7 @@ export default function ApiKeysPage() {
               </div>
             }
           >
-            <form className="space-y-5">
+            <div className="space-y-5">
               <div className="rounded-lg border border-border bg-accent/40 p-4">
                 <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                   <div className="space-y-1">
@@ -126,37 +118,45 @@ export default function ApiKeysPage() {
                       生产级别 Key 需安全管理员与系统负责人双人确认。
                     </p>
                   </div>
-                  <StatusBadge status="warning" className="w-fit">
-                    审批中发放
-                  </StatusBadge>
+                  <span className="text-sm font-medium text-foreground">审批中发放</span>
                 </div>
               </div>
 
-              <FqlField
-                label="Key 名称"
-                defaultValue="Order Sync Worker - Prod"
-                placeholder="请输入 Key 名称"
-                description="建议用“系统 / 环境 / 任务”命名，便于后续审计与轮换。"
-              />
-              <FqlField
-                label="访问范围"
-                defaultValue="订单读取、物流回传、失败重试回调"
-                placeholder="请输入访问范围"
-                description="请按最小权限原则填写所需接口与操作范围。"
-              />
-              <FqlField
-                label="回调备注"
-                defaultValue="仅用于生产订单同步，负责人：赵庭安，变更窗口：工作日 20:00 后。"
-                placeholder="请输入回调备注"
-                description="记录负责人、接入背景或回调约束，方便排查异常请求。"
-              />
-              <FqlField
-                label="过期策略"
-                defaultValue="90 天自动失效，提前 7 天通知轮换"
-                placeholder="请输入过期策略"
-                description="推荐短周期轮换；如需长期使用，应额外说明风控措施。"
-              />
-            </form>
+              <div className="rounded-lg border border-border bg-muted/30 p-4">
+                <div className="text-sm font-medium text-foreground">Key 名称</div>
+                <div className="mt-1 text-sm text-foreground">Order Sync Worker - Prod</div>
+                <div className="mt-1 text-sm text-muted-foreground">
+                  建议用“系统 / 环境 / 任务”命名，便于后续审计与轮换。
+                </div>
+              </div>
+              <div className="rounded-lg border border-border bg-muted/30 p-4">
+                <div className="text-sm font-medium text-foreground">访问范围</div>
+                <div className="mt-1 text-sm text-foreground">
+                  订单读取、物流回传、失败重试回调
+                </div>
+                <div className="mt-1 text-sm text-muted-foreground">
+                  请按最小权限原则填写所需接口与操作范围。
+                </div>
+              </div>
+              <div className="rounded-lg border border-border bg-muted/30 p-4">
+                <div className="text-sm font-medium text-foreground">回调备注</div>
+                <div className="mt-1 text-sm text-foreground">
+                  仅用于生产订单同步，负责人：赵庭安，变更窗口：工作日 20:00 后。
+                </div>
+                <div className="mt-1 text-sm text-muted-foreground">
+                  记录负责人、接入背景或回调约束，方便排查异常请求。
+                </div>
+              </div>
+              <div className="rounded-lg border border-border bg-muted/30 p-4">
+                <div className="text-sm font-medium text-foreground">过期策略</div>
+                <div className="mt-1 text-sm text-foreground">
+                  90 天自动失效，提前 7 天通知轮换
+                </div>
+                <div className="mt-1 text-sm text-muted-foreground">
+                  推荐短周期轮换；如需长期使用，应额外说明风控措施。
+                </div>
+              </div>
+            </div>
           </FqlCard>
 
           <div className="space-y-6">
@@ -176,9 +176,9 @@ export default function ApiKeysPage() {
                           <p className="text-sm font-medium sm:text-base">
                             {key.name}
                           </p>
-                          <StatusBadge status={key.status} className="w-fit">
+                          <span className="text-sm font-medium text-foreground">
                             {key.statusLabel}
-                          </StatusBadge>
+                          </span>
                         </div>
 
                         <div className="grid gap-3 sm:grid-cols-2">
@@ -217,19 +217,15 @@ export default function ApiKeysPage() {
                           重新生成
                         </Button>
                         <Button
-                          variant={
-                            key.status === "danger"
-                              ? "secondary-outline"
-                              : "primary-fill"
-                          }
+                          variant={key.statusLabel === "已停用" ? "secondary-outline" : "primary-fill"}
                           size="S"
                           className={
-                            key.status === "danger"
+                            key.statusLabel === "已停用"
                               ? undefined
                               : "bg-destructive text-destructive-foreground hover:bg-[var(--sys-error-hover)] active:bg-[var(--sys-error-active)]"
                           }
                         >
-                          {key.status === "danger" ? "查看记录" : "停用"}
+                          {key.statusLabel === "已停用" ? "查看记录" : "停用"}
                         </Button>
                       </div>
                     </div>

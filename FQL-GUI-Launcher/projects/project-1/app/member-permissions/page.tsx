@@ -3,8 +3,6 @@
 import { useMemo, useState } from "react";
 
 import { FqlCard } from "ai-agent-design-system/components/fql/fql-card";
-import { FqlField } from "ai-agent-design-system/components/fql/fql-field";
-import { StatusBadge } from "ai-agent-design-system/components/fql/status-badge";
 import { Button } from "ai-agent-design-system/components/ui/button";
 
 type MemberStatus = "active" | "invited" | "suspended" | "inactive";
@@ -105,16 +103,6 @@ const members: MemberItem[] = [
 
 const selectedCount = 3;
 
-const statusToBadgeVariant: Record<
-  MemberStatus,
-  "success" | "warning" | "danger" | "neutral"
-> = {
-  active: "success",
-  invited: "warning",
-  suspended: "danger",
-  inactive: "neutral",
-};
-
 const statusOptions: { value: MemberStatus; label: string }[] = [
   { value: "active", label: "启用中" },
   { value: "invited", label: "待激活" },
@@ -161,9 +149,7 @@ export default function MemberPermissionsPage() {
     <main className="min-h-screen bg-background text-foreground">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 py-6 sm:gap-8 sm:px-6 sm:py-8 lg:px-8">
         <header className="space-y-3">
-          <StatusBadge status="marketing" className="w-fit">
-            Member Permissions
-          </StatusBadge>
+          <p className="text-sm font-medium text-muted-foreground">Member Permissions</p>
           <div className="space-y-2">
             <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">
               成员权限管理
@@ -181,12 +167,21 @@ export default function MemberPermissionsPage() {
             description="支持按成员姓名/邮箱、角色和状态快速筛选，便于批量治理。"
           >
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              <FqlField
-                label="关键词"
-                placeholder="输入姓名或邮箱"
-                value={keyword}
-                onChange={(event) => setKeyword(event.target.value)}
-              />
+              <div className="space-y-2">
+                <label
+                  htmlFor="keyword-filter"
+                  className="text-sm leading-snug font-medium"
+                >
+                  关键词
+                </label>
+                <input
+                  id="keyword-filter"
+                  placeholder="输入姓名或邮箱"
+                  value={keyword}
+                  onChange={(event) => setKeyword(event.target.value)}
+                  className="h-9 w-full rounded-md border border-input bg-background px-2.5 text-sm text-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
+                />
+              </div>
 
               <div className="space-y-2">
                 <label
@@ -272,12 +267,9 @@ export default function MemberPermissionsPage() {
                             {member.email}
                           </p>
                         </div>
-                        <StatusBadge
-                          status={statusToBadgeVariant[member.status]}
-                          className="w-fit"
-                        >
+                        <span className="text-sm font-medium text-foreground">
                           {member.statusLabel}
-                        </StatusBadge>
+                        </span>
                       </div>
 
                       <div className="grid grid-cols-1 gap-2 text-sm text-muted-foreground sm:grid-cols-2">

@@ -47,6 +47,9 @@
 - `ai-agent-design-system/app/primitive-preview` 已正式确认为 primitive 展示的舞台层：外层导航、网站标题栏与详情展示容器外壳统一使用 `app/primitive-preview/_internal/*` 与 `_shadcn/*` 私有实现收口。
 - `primitive-preview/[id]` 右侧详情区中的真实组件展示内容不得受舞台层样式污染；`primitive-preview-detail-body` 视为接近真实 consumer 上下文的展示落点，后续迭代不得从舞台壳层写宽泛样式覆盖其内部内容。
 - 舞台层私有组件、私有样式与私有类名只服务于 preview 舞台本身，不得被 `projects/*` 或其他 consumer / 业务页面复用调用；“舞台的东西只能用来做舞台”已作为正式边界固化到包级规则与 docs。
+- `Badge`、`Input`、`Label`、`Field` 及其 preview 舞台项已从 `ai-agent-design-system` 删除；`Card / 卡片` 详情区已收缩为“开发中”占位。
+- 依赖旧 primitive 的 `StatusBadge`、`FqlField` 已同步删除；`project-1` 中受影响页面已改为最小静态信息块与纯文本状态表达，避免 consumer 残留悬空依赖。
+- `ai-agent-design-system/registry.json` 与 `public/r/*` 已清理过期 registry 项，当前仅保留仍存在的 registry 组件；本轮已重新完整通过 `pnpm run harness:lint` 与 `pnpm run harness:verify`。
 
 ## 下一步
 
@@ -54,7 +57,7 @@
 
 - 继续下一个 primitive 的正式建设，保持“先 design-system primitive、后业务消费”的推进顺序
 - 后续新增 primitive preview 时，默认只改 `registry.tsx` 与详情内容本身，不在舞台层 layout / nav shell 上为单个 primitive 添加特例样式
-- 观察远端 GitHub Actions / PR 对本轮 iPhone 通用 primitive 与 preview 框架收口后的首次运行结果
+- 基于新的设计证据决定是否补回输入类 / 状态类能力，避免 consumer 长期停留在静态回退态
 
 ### P1
 
@@ -64,6 +67,7 @@
 - 结合真实页面复用证据，再判断 `Navbar` 的 tabs / search / action icon 是否仍应停留在 `_internal`，还是具备正式上推条件
 - 当 loading 能力脱离 `Button` 内部实现时，再评估是否把当前内部资产升级为正式独立 primitive
 - 若后续舞台私有资产继续增长，评估是否增加针对 `app/primitive-preview/_internal/*` 与 `_shadcn/*` 的边界校验，减少 consumer 误用风险
+- 观察远端 GitHub Actions / PR 对本轮历史 primitive 删除与 registry 收缩后的首次运行结果
 
 ## 风险 / 依赖
 
@@ -76,3 +80,4 @@
 - 视觉 preview 校验已从“本轮临时跳过”升级为“用户执行、助手等待回传”的固定流程；若后续任务需要人工视觉结论，仍会引入额外等待成本，但可避免 agent 在本地预览判断上自循环。
 - “危险语义”能力当前按你的裁决暂不进入上推范围；需等真实业务页跑通后，再决定是否进入正式 design-system API 收敛。
 - 当前新增的是治理与文档级边界，而非自动化强约束；若后续有人在舞台层追加宽泛 selector，或在 consumer 中直接引用 `primitive-preview` 私有资产，仍可能出现规则漂移，需要结合 code review 持续防回流。
+- `project-1` 当前若继续扩展需要交互式表单或强语义状态标签，只能先回到 design-system 主线补新 primitive / semantic，不能在 consumer 侧直接补回旧共享组件。

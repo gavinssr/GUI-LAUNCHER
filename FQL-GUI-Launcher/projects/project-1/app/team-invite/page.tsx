@@ -1,6 +1,4 @@
 import { FqlCard } from "ai-agent-design-system/components/fql/fql-card";
-import { FqlField } from "ai-agent-design-system/components/fql/fql-field";
-import { StatusBadge } from "ai-agent-design-system/components/fql/status-badge";
 import { Button } from "ai-agent-design-system/components/ui/button";
 
 const pendingInvites = [
@@ -8,28 +6,24 @@ const pendingInvites = [
     name: "林舒然",
     email: "shuran.lin@fql-demo.com",
     role: "运营管理员",
-    status: "warning" as const,
     statusLabel: "待接受",
   },
   {
     name: "周以衡",
     email: "yiheng.zhou@fql-demo.com",
     role: "数据分析师",
-    status: "neutral" as const,
     statusLabel: "待发送",
   },
   {
     name: "陈听晚",
     email: "tingwan.chen@fql-demo.com",
     role: "项目协作成员",
-    status: "success" as const,
     statusLabel: "已提醒",
   },
   {
     name: "许知行",
     email: "zhixing.xu@fql-demo.com",
     role: "财务查看者",
-    status: "default" as const,
     statusLabel: "审批中",
   },
 ];
@@ -46,9 +40,7 @@ export default function TeamInvitePage() {
     <main className="min-h-screen bg-background text-foreground">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-6 py-10 lg:px-8">
         <header className="space-y-4">
-          <StatusBadge status="marketing" className="w-fit">
-            团队成员邀请
-          </StatusBadge>
+          <p className="text-sm font-medium text-muted-foreground">团队成员邀请</p>
           <div className="space-y-2">
             <h1 className="text-3xl font-semibold tracking-tight">
               团队成员邀请演练页
@@ -63,35 +55,38 @@ export default function TeamInvitePage() {
         <section className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           <FqlCard
             title="邀请成员"
-            description="填写基础信息并发送团队协作邀请。"
+            description="已移除旧字段型组件，当前以静态信息块承载邀请表单草稿。"
           >
-            <form className="space-y-5">
-              <FqlField
-                label="成员姓名"
-                defaultValue="王可宁"
-                placeholder="请输入成员姓名"
-                description="建议填写与企业实名一致的姓名，便于后续权限核验。"
-              />
-              <FqlField
-                label="工作邮箱"
-                type="email"
-                defaultValue="kening.wang@fql-demo.com"
-                placeholder="请输入工作邮箱"
-                description="邀请通知将发送到该邮箱，成员需通过邮件完成加入。"
-              />
-              <FqlField
-                label="团队角色"
-                defaultValue="项目管理员"
-                placeholder="请输入团队角色"
-                description="如无固定模板，可填写业务职责对应的角色名称。"
-              />
-              <FqlField
-                label="备注"
-                defaultValue="负责本季度华东区域交付协同。"
-                placeholder="请输入备注信息"
-                description="可补充所属项目、权限范围或邀请背景，方便管理员复核。"
-              />
-            </form>
+            <div className="space-y-4">
+              <div className="rounded-lg border border-border bg-muted/30 p-4">
+                <div className="text-sm font-medium text-foreground">成员姓名</div>
+                <div className="mt-1 text-sm text-foreground">王可宁</div>
+                <div className="mt-1 text-sm text-muted-foreground">
+                  建议填写与企业实名一致的姓名，便于后续权限核验。
+                </div>
+              </div>
+              <div className="rounded-lg border border-border bg-muted/30 p-4">
+                <div className="text-sm font-medium text-foreground">工作邮箱</div>
+                <div className="mt-1 text-sm text-foreground">kening.wang@fql-demo.com</div>
+                <div className="mt-1 text-sm text-muted-foreground">
+                  邀请通知将发送到该邮箱，成员需通过邮件完成加入。
+                </div>
+              </div>
+              <div className="rounded-lg border border-border bg-muted/30 p-4">
+                <div className="text-sm font-medium text-foreground">团队角色</div>
+                <div className="mt-1 text-sm text-foreground">项目管理员</div>
+                <div className="mt-1 text-sm text-muted-foreground">
+                  如无固定模板，可填写业务职责对应的角色名称。
+                </div>
+              </div>
+              <div className="rounded-lg border border-border bg-muted/30 p-4">
+                <div className="text-sm font-medium text-foreground">备注</div>
+                <div className="mt-1 text-sm text-foreground">负责本季度华东区域交付协同。</div>
+                <div className="mt-1 text-sm text-muted-foreground">
+                  可补充所属项目、权限范围或邀请背景，方便管理员复核。
+                </div>
+              </div>
+            </div>
           </FqlCard>
 
           <FqlCard
@@ -111,9 +106,9 @@ export default function TeamInvitePage() {
                         {invite.email}
                       </p>
                     </div>
-                    <StatusBadge status={invite.status} className="w-fit">
+                    <span className="text-sm font-medium text-foreground">
                       {invite.statusLabel}
-                    </StatusBadge>
+                    </span>
                   </div>
                   <p className="text-sm text-muted-foreground">
                     角色：{invite.role}

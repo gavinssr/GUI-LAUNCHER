@@ -1,16 +1,7 @@
 import type { ReactNode } from "react"
+import { CircleAlert } from "lucide-react"
 
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
 import {
   Dialog,
   DialogContent,
@@ -20,18 +11,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import {
-  Field,
-  FieldContent,
-  FieldDescription,
-  FieldError,
-  FieldLabel,
-  FieldSet,
-  FieldTitle,
-} from "@/components/ui/field"
+import { DisplayField } from "@/components/ui/display-field"
 import { HomeIndicator } from "@/components/ui/home-indicator"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { Navbar } from "@/components/ui/navbar"
 import { Separator } from "@/components/ui/separator"
 import { StatusBar } from "@/components/ui/status-bar"
@@ -94,7 +75,210 @@ function NavbarPreviewSurface({ children }: { children: ReactNode }) {
   return <div className="w-fit overflow-hidden bg-background">{children}</div>
 }
 
+function DisplayFieldPreviewSurface({
+  label,
+  children,
+}: {
+  label: string
+  children: ReactNode
+}) {
+  return (
+    <div className="space-y-3 rounded-xl border border-border bg-[var(--sys-page-background-fill)] p-4">
+      <div className="text-xs text-muted-foreground">{label}</div>
+      <div className="w-fit">{children}</div>
+    </div>
+  )
+}
+
+function DisplayFieldPreviewTag() {
+  return (
+    <div className="flex h-4 items-center justify-center rounded-[2px] border border-[var(--ref-brand-blue3)] px-1 text-[10px] leading-[9px] text-[var(--ref-brand-blue8-base)]">
+      标签
+    </div>
+  )
+}
+
+function DisplayFieldPresetWithInfo() {
+  return (
+    <div className="flex items-center gap-0.5 text-[14px] leading-4 text-[var(--sys-text-black-h2)]">
+      <span>预设内容</span>
+      <CircleAlert className="size-4" strokeWidth={1.75} />
+    </div>
+  )
+}
+
 export const primitivePreviewRegistry: PrimitivePreviewItem[] = [
+  {
+    id: "display-field",
+    primitiveIds: ["display-field"],
+    title: "DisplayField / 展示类",
+    description:
+      "Mobile display-only field primitives covering the current Figma showcase set. / 移动端表单展示类 primitive，覆盖当前 Figma 节点下全部展示形态。",
+    render: () => (
+      <div className="flex flex-col gap-6">
+        <section className="flex flex-col gap-4">
+          <div className="text-lg font-semibold text-foreground">单行</div>
+
+          <section className="flex flex-col gap-3">
+            <div className="text-sm font-medium text-foreground">无预设内容</div>
+            <div className="grid gap-4 xl:grid-cols-2">
+              <DisplayFieldPreviewSurface label="通栏">
+                <DisplayField mainTitle="一级标题" />
+              </DisplayFieldPreviewSurface>
+              <DisplayFieldPreviewSurface label="卡片式">
+                <DisplayField surface="card" mainTitle="一级标题" separator={false} />
+              </DisplayFieldPreviewSurface>
+            </div>
+          </section>
+
+          <section className="flex flex-col gap-3">
+            <div className="text-sm font-medium text-foreground">有预设内容</div>
+            <div className="grid gap-4 xl:grid-cols-2">
+              <DisplayFieldPreviewSurface label="通栏">
+                <DisplayField mainTitle="一级标题" side={<DisplayFieldPresetWithInfo />} />
+              </DisplayFieldPreviewSurface>
+              <DisplayFieldPreviewSurface label="卡片式">
+                <DisplayField
+                  surface="card"
+                  mainTitle="一级标题"
+                  side={<DisplayFieldPresetWithInfo />}
+                  separator={false}
+                />
+              </DisplayFieldPreviewSurface>
+            </div>
+          </section>
+        </section>
+
+        <section className="flex flex-col gap-4">
+          <div className="text-lg font-semibold text-foreground">多行</div>
+
+          <section className="flex flex-col gap-3">
+            <div className="text-sm font-medium text-foreground">左对齐 / 无预设</div>
+            <div className="grid gap-4 xl:grid-cols-2">
+              <DisplayFieldPreviewSurface label="通栏">
+                <DisplayField
+                  size="multi"
+                  mainTitle="一级标题"
+                  mainDescription="二级文本"
+                />
+              </DisplayFieldPreviewSurface>
+              <DisplayFieldPreviewSurface label="卡片式">
+                <DisplayField
+                  surface="card"
+                  size="multi"
+                  mainTitle="一级标题"
+                  mainDescription="二级文本"
+                  separator={false}
+                />
+              </DisplayFieldPreviewSurface>
+            </div>
+          </section>
+
+          <section className="flex flex-col gap-3">
+            <div className="text-sm font-medium text-foreground">左对齐 / 有预设</div>
+            <div className="grid gap-4 xl:grid-cols-2">
+              <DisplayFieldPreviewSurface label="通栏">
+                <DisplayField
+                  size="multi"
+                  mainTitle="一级标题"
+                  mainDescription="二级文本"
+                  side={<div className="text-[14px] leading-4 text-[var(--sys-text-black-h2)]">预设内容</div>}
+                />
+              </DisplayFieldPreviewSurface>
+              <DisplayFieldPreviewSurface label="卡片式">
+                <DisplayField
+                  surface="card"
+                  size="multi"
+                  mainTitle="一级标题"
+                  mainDescription="二级文本"
+                  side={<div className="text-[14px] leading-4 text-[var(--sys-text-black-h2)]">预设内容</div>}
+                  separator={false}
+                />
+              </DisplayFieldPreviewSurface>
+            </div>
+          </section>
+
+          <section className="flex flex-col gap-3">
+            <div className="text-sm font-medium text-foreground">左对齐 / 一二级预设</div>
+            <div className="grid gap-4 xl:grid-cols-2">
+              <DisplayFieldPreviewSurface label="通栏">
+                <DisplayField
+                  size="multi"
+                  mainTitle="一级标题"
+                  mainBadge={<DisplayFieldPreviewTag />}
+                  sideTitle="一级标题"
+                  sideDescription="二级文本"
+                />
+              </DisplayFieldPreviewSurface>
+              <DisplayFieldPreviewSurface label="卡片式">
+                <DisplayField
+                  surface="card"
+                  size="multi"
+                  mainTitle="一级标题"
+                  mainBadge={<DisplayFieldPreviewTag />}
+                  sideTitle="一级标题"
+                  sideDescription="二级文本"
+                  separator={false}
+                />
+              </DisplayFieldPreviewSurface>
+            </div>
+          </section>
+
+          <section className="flex flex-col gap-3">
+            <div className="text-sm font-medium text-foreground">左对齐 / 数字标题</div>
+            <div className="grid gap-4 xl:grid-cols-2">
+              <DisplayFieldPreviewSurface label="通栏">
+                <DisplayField
+                  size="number"
+                  mainEyebrow="二级文本"
+                  mainTitle="¥9294.02"
+                  mainTitleTone="number"
+                  side={<div className="text-[14px] leading-4 text-[var(--sys-text-black-h2)]">预设内容</div>}
+                />
+              </DisplayFieldPreviewSurface>
+              <DisplayFieldPreviewSurface label="卡片式">
+                <DisplayField
+                  surface="card"
+                  size="number"
+                  mainEyebrow="二级文本"
+                  mainTitle="¥9294.02"
+                  mainTitleTone="number"
+                  side={<div className="text-[14px] leading-4 text-[var(--sys-text-black-h2)]">预设内容</div>}
+                  separator={false}
+                />
+              </DisplayFieldPreviewSurface>
+            </div>
+          </section>
+
+          <section className="flex flex-col gap-3">
+            <div className="text-sm font-medium text-foreground">右对齐 / 有预设</div>
+            <div className="grid gap-4 xl:grid-cols-2">
+              <DisplayFieldPreviewSurface label="通栏">
+                <DisplayField
+                  size="multi"
+                  reverse
+                  mainTitle="一级标题"
+                  mainDescription="二级文本"
+                  side={<div className="text-[14px] leading-4 text-[var(--sys-text-black-h2)]">预设内容</div>}
+                />
+              </DisplayFieldPreviewSurface>
+              <DisplayFieldPreviewSurface label="卡片式">
+                <DisplayField
+                  surface="card"
+                  size="multi"
+                  reverse
+                  mainTitle="一级标题"
+                  mainDescription="二级文本"
+                  side={<div className="text-[14px] leading-4 text-[var(--sys-text-black-h2)]">预设内容</div>}
+                  separator={false}
+                />
+              </DisplayFieldPreviewSurface>
+            </div>
+          </section>
+        </section>
+      </div>
+    ),
+  },
   {
     id: "button",
     primitiveIds: ["button"],
@@ -335,47 +519,6 @@ export const primitivePreviewRegistry: PrimitivePreviewItem[] = [
     ),
   },
   {
-    id: "badge",
-    primitiveIds: ["badge"],
-    title: "Badge / 徽标",
-    description: "展示所有 badge 语义变体。",
-    render: () => (
-      <div className="flex flex-wrap items-center gap-3">
-        <Badge>default</Badge>
-        <Badge variant="secondary">secondary</Badge>
-        <Badge variant="outline">outline</Badge>
-        <Badge variant="destructive">destructive</Badge>
-        <Badge variant="ghost">ghost</Badge>
-        <Badge variant="link">link</Badge>
-      </div>
-    ),
-  },
-  {
-    id: "input",
-    primitiveIds: ["input"],
-    title: "Input / 输入框",
-    description: "展示默认、禁用和错误态。",
-    render: () => (
-      <div className="grid gap-3 md:grid-cols-2">
-        <Input placeholder="默认输入框" />
-        <Input disabled value="disabled" readOnly />
-        <Input aria-invalid defaultValue="invalid@example" />
-      </div>
-    ),
-  },
-  {
-    id: "label",
-    primitiveIds: ["label"],
-    title: "Label / 标签",
-    description: "展示与 input 的基础组合。",
-    render: () => (
-      <div className="grid gap-2 md:max-w-sm">
-        <Label htmlFor="primitive-preview-label-input">账号名</Label>
-        <Input id="primitive-preview-label-input" placeholder="请输入账号名" />
-      </div>
-    ),
-  },
-  {
     id: "separator",
     primitiveIds: ["separator"],
     title: "Separator / 分隔线",
@@ -398,58 +541,11 @@ export const primitivePreviewRegistry: PrimitivePreviewItem[] = [
     id: "card",
     primitiveIds: ["card"],
     title: "Card / 卡片",
-    description: "展示 default/sm 尺寸和 header/action/footer 结构。",
+    description: "开发中。",
     render: () => (
-      <div className="grid gap-4 md:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle>默认尺寸</CardTitle>
-            <CardDescription>Card default size</CardDescription>
-            <CardAction>
-              <Button size="S" variant="secondary-outline">
-                操作
-              </Button>
-            </CardAction>
-          </CardHeader>
-          <CardContent>内容区示例</CardContent>
-          <CardFooter>
-            <Button size="S" variant="primary-fill">
-              提交
-            </Button>
-          </CardFooter>
-        </Card>
-        <Card size="sm">
-          <CardHeader>
-            <CardTitle>小尺寸</CardTitle>
-            <CardDescription>Card small size</CardDescription>
-          </CardHeader>
-          <CardContent>紧凑内容示例</CardContent>
-        </Card>
+      <div className="text-[clamp(1.25rem,1.8vw,1.75rem)] leading-[1.15] font-bold text-muted-foreground">
+        开发中
       </div>
-    ),
-  },
-  {
-    id: "field",
-    primitiveIds: ["field"],
-    title: "Field / 表单字段",
-    description: "展示 vertical 与 horizontal 布局和错误信息。",
-    render: () => (
-      <FieldSet className="gap-4">
-        <Field>
-          <FieldContent>
-            <FieldTitle>用户名</FieldTitle>
-            <Input placeholder="请输入用户名" />
-            <FieldDescription>建议与工号系统保持一致。</FieldDescription>
-          </FieldContent>
-        </Field>
-        <Field orientation="horizontal" data-invalid="true">
-          <FieldLabel htmlFor="primitive-preview-phone">手机号</FieldLabel>
-          <FieldContent>
-            <Input id="primitive-preview-phone" defaultValue="123" aria-invalid />
-            <FieldError>手机号格式不正确</FieldError>
-          </FieldContent>
-        </Field>
-      </FieldSet>
     ),
   },
   {

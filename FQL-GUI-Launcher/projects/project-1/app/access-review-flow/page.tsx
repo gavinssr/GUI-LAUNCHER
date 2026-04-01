@@ -3,7 +3,6 @@
 import { useState } from "react";
 
 import { FqlCard } from "ai-agent-design-system/components/fql/fql-card";
-import { StatusBadge } from "ai-agent-design-system/components/fql/status-badge";
 import { Button } from "ai-agent-design-system/components/ui/button";
 
 type ReviewStatus = "pending" | "approved" | "rejected";
@@ -88,12 +87,6 @@ const statusLabelMap: Record<ReviewStatus, string> = {
   rejected: "已拒绝",
 };
 
-const statusBadgeMap: Record<ReviewStatus, "warning" | "success" | "danger"> = {
-  pending: "warning",
-  approved: "success",
-  rejected: "danger",
-};
-
 export default function AccessReviewFlowPage() {
   const [requests, setRequests] = useState<AccessRequest[]>(initialRequests);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
@@ -151,9 +144,7 @@ export default function AccessReviewFlowPage() {
     <main className="min-h-screen bg-background text-foreground">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 py-6 sm:gap-8 sm:px-6 sm:py-8 lg:px-8">
         <header className="space-y-3">
-          <StatusBadge status="marketing" className="w-fit">
-            Access Review Flow
-          </StatusBadge>
+          <p className="text-sm font-medium text-muted-foreground">Access Review Flow</p>
           <div className="space-y-2">
             <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">
               权限审批流
@@ -173,9 +164,7 @@ export default function AccessReviewFlowPage() {
               <article className="border border-border bg-muted/30 p-4">
                 <div className="flex items-center justify-between gap-3">
                   <p className="text-sm font-medium">待审批</p>
-                  <StatusBadge status="warning" className="w-fit">
-                    待处理
-                  </StatusBadge>
+                  <span className="text-sm font-medium text-foreground">待处理</span>
                 </div>
                 <p className="mt-3 text-2xl font-semibold">{summary.pending}</p>
               </article>
@@ -183,9 +172,7 @@ export default function AccessReviewFlowPage() {
               <article className="border border-border bg-muted/30 p-4">
                 <div className="flex items-center justify-between gap-3">
                   <p className="text-sm font-medium">已通过</p>
-                  <StatusBadge status="success" className="w-fit">
-                    已生效
-                  </StatusBadge>
+                  <span className="text-sm font-medium text-foreground">已生效</span>
                 </div>
                 <p className="mt-3 text-2xl font-semibold">{summary.approved}</p>
               </article>
@@ -193,9 +180,7 @@ export default function AccessReviewFlowPage() {
               <article className="border border-border bg-muted/30 p-4">
                 <div className="flex items-center justify-between gap-3">
                   <p className="text-sm font-medium">已拒绝</p>
-                  <StatusBadge status="danger" className="w-fit">
-                    已结束
-                  </StatusBadge>
+                  <span className="text-sm font-medium text-foreground">已结束</span>
                 </div>
                 <p className="mt-3 text-2xl font-semibold">{summary.rejected}</p>
               </article>
@@ -242,9 +227,9 @@ export default function AccessReviewFlowPage() {
                           />
                           选择
                         </label>
-                        <StatusBadge status={statusBadgeMap[item.status]} className="w-fit">
+                        <span className="text-sm font-medium text-foreground">
                           {statusLabelMap[item.status]}
-                        </StatusBadge>
+                        </span>
                       </div>
 
                       <div className="space-y-2">
